@@ -17,4 +17,4 @@ Before we can run the service, you will have to install all packages used in our
 3. Run `npm install` or `npm i` on your terminal. This will install all project dependencies in our application.
      
 #### Running The Program
-Use `npx expo start --tunnel` to run the service. This will create a QR code for you to scan on your mobile device. Install **Expo Go** on your phone and scan the QR code to view the project on your device. Any changes to the code can be seen in realtime.
+Use `npx expo start --tunnel` to run the service. You might be asked to install expo/ngrok, say yes so we can create a tunnel and access the application on our phones. This will create a QR code for you to scan on your mobile device. Install **Expo Go** on your phone and scan the QR code to view the project on your device. Any changes to the code can be seen in realtime.
