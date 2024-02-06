@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +8,7 @@ public class HelloWorld : MonoBehaviour
     void Start()
     {
         print("Power isn't everything");
+        print("力が全てじゃない");
     }
 
     // Update is called once per frame
