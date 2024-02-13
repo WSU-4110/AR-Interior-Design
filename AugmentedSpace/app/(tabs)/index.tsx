@@ -1,8 +1,11 @@
 import { Text, View } from "@/components/Themed";
 import { Button, Alert, Pressable, StyleSheet } from "react-native";
+import { Link, useRouter } from "expo-router";
 
 export default function Index() {
+  const router = useRouter();
   return (
+
     <View className="flex-1 items-center justify-center">
       <Text className="font-bold text-xl">Augmented Space</Text>
       <View
@@ -16,6 +19,11 @@ export default function Index() {
         <Text style={styles.text}>{"Login"}</Text>
       </Pressable>
 
+      
+        <Pressable style={styles.button} onPress={() => router.push("/catalog")}>
+          <Text style={styles.text}>{"Catalog Page"}</Text>
+        </Pressable>
+
     </View>
   );
 }
@@ -28,7 +36,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'gray'
+    backgroundColor: 'gray',
+    marginVertical: 8
   },
 
   text: {
