@@ -1,12 +1,12 @@
 import { Text, View } from "@/components/Themed";
-import { Button, Alert, Pressable, StyleSheet } from "react-native";
+import { Button, Alert, Pressable, StyleSheet, SafeAreaView } from "react-native";
 import { Link, useRouter } from "expo-router";
 
 export default function Index() {
   const router = useRouter();
   return (
 
-    <View className="flex-1 items-center justify-center">
+    <SafeAreaView className="flex-1 items-center justify-center">
       <Text className="font-bold text-xl">Augmented Space</Text>
       <View
         className="my-8 h-1 w-4/5"
@@ -24,7 +24,7 @@ export default function Index() {
           <Text style={styles.text}>{"Catalog Page"}</Text>
         </Pressable>
 
-    </View>
+    </SafeAreaView>
   );
 }
 
