@@ -1,48 +1,18 @@
 import { View } from '@/components/Themed';
 import {SafeAreaView, StyleSheet } from 'react-native';
+
 import Colors from '@/constants/Colors';
+import { CardStyle } from '@/styles/ItemCardStyle';
 
 
 export default function ItemCard(props) {
 
 
     return (
-        <View style={styles.card}>
-            <View style={styles.content}>
+        <View style={CardStyle.card}>
+            <View style={CardStyle.content}>
                 { props.children }
             </View>
         </View>
     )
 }
-
-
-const styles = StyleSheet.create({
-    card: {
-        width: 175,
-        height: 230,
-        borderRadius: 6,
-        elevation: 7,
-        backgroundColor: '#fff',
-        shadowOffset: {width: 2, height: 2},
-        shadowColor: '#333',
-        shadowOpacity: 1,
-        marginHorizontal: 8,
-        marginVertical: 8,
-
-        justifyContent: 'center',
-        alignItems: 'center'
-
-        
-
-    },
-
-    content: {        
-        width: 170,
-        height: 225,
-        textAlign: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        color: '#000',
-        justifyContent: 'space-evenly'
-    }
-})

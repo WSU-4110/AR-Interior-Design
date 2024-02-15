@@ -4,7 +4,7 @@ import {SafeAreaView, Alert, TouchableOpacity, StyleSheet, ScrollView, FlatList,
 import { useRouter } from 'expo-router';
 
 
-import Colors from '@/constants/Colors';
+import {CardStyle} from '@/styles/ItemCardStyle'
 
 
 
@@ -23,18 +23,18 @@ export default function catalog() {
 
     return (
         <SafeAreaView className="flex-row flex-wrap items-center">
-            <FlatList contentContainerStyle={{flexDirection:"row", flexWrap: "wrap", justifyContent: 'center'}} 
+            <FlatList contentContainerStyle={CardStyle.listContainer} 
                 data={loop} 
                 renderItem={({item}) => 
                     <TouchableOpacity onPress={() => Alert.alert(`card ${item} touched`)}>
                         <ItemCard>
                             <Image source={require("@/assets/images/favicon.png")} 
-                                style={{ borderWidth: 2, borderColor: '#000', paddingHorizontal: 72, paddingVertical: 64, borderRadius: 6}}/> 
-                            <Text style={{fontSize: 24}}>{ItemPlaceholder} {item}</Text>
-                            <Text style={{fontSize: 12, fontWeight: 'bold', fontStyle: 'italic', color: '#888888'}}>
+                                style={CardStyle.image}/> 
+                            <Text style={CardStyle.itemText}>{ItemPlaceholder} {item}</Text>
+                            <Text style={CardStyle.brandText}>
                                 {BrandPlaceholder}
                             </Text>
-                            <Text style={{fontWeight: "bold", color: '#2211ff'}}>{PricePlaceholder}</Text>
+                            <Text style={CardStyle.priceText}>{PricePlaceholder}</Text>
                         </ItemCard>
                     </TouchableOpacity>
                 }>
