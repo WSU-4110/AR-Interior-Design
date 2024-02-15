@@ -19,13 +19,15 @@ export default function catalog() {
 
     return (
         <SafeAreaView className="flex-row flex-wrap items-center">
-            <FlatList contentContainerStyle={{flexDirection:"row", flexWrap: "wrap"}} data={loop} 
+            <FlatList contentContainerStyle={{flexDirection:"row", flexWrap: "wrap", justifyContent: 'center'}} 
+                data={loop} 
                 renderItem={({item}) => 
                     <TouchableOpacity onPress={() => Alert.alert(`card ${item} touched`)}>
                         <ItemCard>
-                            <Image source={require("@/assets/images/favicon.png")} />
-                            <Text>Card Num {item}</Text>
-                            <Text>Price</Text>
+                            <Image source={require("@/assets/images/favicon.png")} style={{marginVertical: 32}}/> 
+                            <Text style={{fontSize: 24}}>Item Num {item}</Text>
+                            <Text style={{fontSize: 12, fontWeight: 'bold', fontStyle: 'italic', color: '#888888'}}>Brand Name</Text>
+                            <Text style={{fontWeight: "bold", color: '#2211ff'}}>$24.99</Text>
                         </ItemCard>
                     </TouchableOpacity>
                 }>

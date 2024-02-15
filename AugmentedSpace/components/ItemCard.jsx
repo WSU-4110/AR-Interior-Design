@@ -37,7 +37,10 @@ const styles = StyleSheet.create({
     },
 
     content: {        
+        width: 170,
+        height: 225,
         textAlign: 'center',
+        alignItems: 'center',
         backgroundColor: '#fff',
         color: '#000',
         justifyContent: 'space-evenly'
