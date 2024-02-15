@@ -11,6 +11,10 @@ import Colors from '@/constants/Colors';
 export default function catalog() {
     const router = useRouter();
 
+    const ItemPlaceholder = "Item Num";
+    const BrandPlaceholder = "Brand Name";
+    const PricePlaceholder = "$24.99";
+
     var loop =[];
     for (let i = 0; i < 100; i++) {
         loop.push(i)
@@ -24,10 +28,13 @@ export default function catalog() {
                 renderItem={({item}) => 
                     <TouchableOpacity onPress={() => Alert.alert(`card ${item} touched`)}>
                         <ItemCard>
-                            <Image source={require("@/assets/images/favicon.png")} style={{marginVertical: 32}}/> 
-                            <Text style={{fontSize: 24}}>Item Num {item}</Text>
-                            <Text style={{fontSize: 12, fontWeight: 'bold', fontStyle: 'italic', color: '#888888'}}>Brand Name</Text>
-                            <Text style={{fontWeight: "bold", color: '#2211ff'}}>$24.99</Text>
+                            <Image source={require("@/assets/images/favicon.png")} 
+                                style={{ borderWidth: 2, borderColor: '#000', paddingHorizontal: 72, paddingVertical: 64, borderRadius: 6}}/> 
+                            <Text style={{fontSize: 24}}>{ItemPlaceholder} {item}</Text>
+                            <Text style={{fontSize: 12, fontWeight: 'bold', fontStyle: 'italic', color: '#888888'}}>
+                                {BrandPlaceholder}
+                            </Text>
+                            <Text style={{fontWeight: "bold", color: '#2211ff'}}>{PricePlaceholder}</Text>
                         </ItemCard>
                     </TouchableOpacity>
                 }>
