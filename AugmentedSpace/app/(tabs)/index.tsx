@@ -1,6 +1,6 @@
 import { Text, View } from "@/components/Themed";
-import { Button, Alert, Pressable, StyleSheet, SafeAreaView, TouchableOpacity} from "react-native";
-import { Link, useRouter } from "expo-router";
+import { Alert, StyleSheet, SafeAreaView, TouchableOpacity} from "react-native";
+import { useRouter } from "expo-router";
 
 export default function Index() {
   const router = useRouter();

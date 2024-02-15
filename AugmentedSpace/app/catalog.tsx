@@ -1,4 +1,4 @@
-import { Text, View } from "@/components/Themed";
+import { Text } from "@/components/Themed";
 import  ItemCard  from '@/components/ItemCard';
 import {SafeAreaView, Alert, TouchableOpacity, StyleSheet, ScrollView, FlatList, Image} from 'react-native'
 import { useRouter } from 'expo-router';
