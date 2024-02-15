@@ -1,7 +1,4 @@
 import { View } from '@/components/Themed';
-import {SafeAreaView, StyleSheet } from 'react-native';
-
-import Colors from '@/constants/Colors';
 import { CardStyle } from '@/styles/ItemCardStyle';
 
 

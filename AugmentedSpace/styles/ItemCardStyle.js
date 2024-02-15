@@ -4,8 +4,7 @@ import Colors from '@/constants/Colors'
 
 export const CardStyle = StyleSheet.create({
     card: {
-        width: 175,
-        height: 230,
+        flex: 1,
         borderRadius: 6,
         elevation: 7,
         backgroundColor: '#fff',
@@ -14,6 +13,7 @@ export const CardStyle = StyleSheet.create({
         shadowOpacity: 1,
         marginHorizontal: 8,
         marginVertical: 8,
+        padding: 8,
 
         justifyContent: 'center',
         alignItems: 'center'
@@ -21,13 +21,13 @@ export const CardStyle = StyleSheet.create({
     },
 
     content: {
-        width: 170,
-        height: 225,
+        flex: 1,
         textAlign: 'center',
         alignItems: 'center',
         backgroundColor: Colors.light.background,
         color: Colors.light.text,
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        padding: 6
     },
 
     itemText: {
@@ -56,8 +56,8 @@ export const CardStyle = StyleSheet.create({
 
     listContainer: {
         flexDirection:"row",
-        flexWrap: "wrap",
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexWrap: 'wrap'
     }
 
 }) 

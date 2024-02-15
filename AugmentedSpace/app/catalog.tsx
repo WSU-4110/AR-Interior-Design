@@ -16,7 +16,7 @@ export default function catalog() {
     const PricePlaceholder = "$24.99";
 
     var loop =[];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 50; i++) {
         loop.push(i)
     }
 
