@@ -47,10 +47,12 @@ export const CardStyle = StyleSheet.create({
     },
 
     image: {
+        flex:1,
+        //placeholder image size values
+        //height: 128,
+        //width: 128,
         borderWidth: 2,
         borderColor: '#000',
-        paddingHorizontal: 72,
-        paddingVertical: 64,
         borderRadius: 6
     },
 
