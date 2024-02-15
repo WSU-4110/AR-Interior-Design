@@ -1,5 +1,5 @@
 import { Text, View } from "@/components/Themed";
-import { Button, Alert, Pressable, StyleSheet, SafeAreaView } from "react-native";
+import { Button, Alert, Pressable, StyleSheet, SafeAreaView, TouchableOpacity} from "react-native";
 import { Link, useRouter } from "expo-router";
 
 export default function Index() {
@@ -15,14 +15,14 @@ export default function Index() {
       />
       <Text style={styles.subtitle}>Add login and buttons here</Text>
 
-      <Pressable style={styles.button} onPress={() => Alert.alert("Login button pressed")}>
+      <TouchableOpacity style={styles.button} onPress={() => Alert.alert("Login button pressed")}>
         <Text style={styles.text}>{"Login"}</Text>
-      </Pressable>
+      </TouchableOpacity>
 
       
-        <Pressable style={styles.button} onPress={() => router.push("/catalog")}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push("/catalog")}>
           <Text style={styles.text}>{"Catalog Page"}</Text>
-        </Pressable>
+        </TouchableOpacity>
 
     </SafeAreaView>
   );
