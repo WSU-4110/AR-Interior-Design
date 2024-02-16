@@ -3,7 +3,7 @@ import { Text, View } from "@/components/Themed";
 export default function Cart() {
   return (
     <View className="flex-1 items-center justify-center">
-      <Text className="font-bold text-xl">This Is Your Cart</Text>
+      <Text className="font-bold text-xl">This</Text>
       <View
         className="my-8 h-1 w-4/5"
         lightColor="#eee"
