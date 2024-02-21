@@ -26,7 +26,7 @@ export default function catalog() {
             <FlatList contentContainerStyle={CardStyle.listContainer} 
                 data={loop} 
                 renderItem={({item}) => 
-                    <TouchableOpacity onPress={() => Alert.alert(`card ${item} touched`)}>
+                    <TouchableOpacity onPress={() => router.push('/item-info')}>
                         <ItemCard>
                             <Image source={require("@/assets/images/favicon.png")} 
                                 style={CardStyle.image}/> 
