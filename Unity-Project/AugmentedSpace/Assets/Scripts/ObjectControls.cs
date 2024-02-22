@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjectControls : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +14,6 @@ public class ObjectControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 }
