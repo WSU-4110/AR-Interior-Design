@@ -64,6 +64,15 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="signup"
+        options={{
+          title: "Sign Up",
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="shopping-cart" color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

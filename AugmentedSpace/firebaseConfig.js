@@ -13,7 +13,7 @@ import { getFireStore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.EXPO_PUBLIC_FIREBASE_PROJECTID + ".firebaseapp.com",
-  databaseURL: "https://project-id.firebaseio.com",
+  databaseURL: "https://" + process.env.EXPO_PUBLIC_FIREBASE_PROJECTID + ".firebaseio.com",
   projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECTID,
   storageBucket: process.env.EXPO_PUBLIC_FIREBASE_PROJECTID + ".appspot.com",
   messagingSenderId: EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
