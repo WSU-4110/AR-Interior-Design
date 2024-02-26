@@ -1,7 +1,10 @@
 import React from 'react';
 import { Alert, View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { infoPageStyle } from '@/styles/itemInfoPageStyles'
+import { infoPageStyle } from '@/styles/itemInfoPageStyles';
+import { useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 const ProductScreen = () => {
+    const {items} = useLocalSearchParams();
 return (
     <ScrollView style={infoPageStyle.container}>
       {/* Product image */}
@@ -16,7 +19,7 @@ return (
             </TouchableOpacity>
         </View>
         <View style={infoPageStyle.detailsContainer}>
-            <Text style={infoPageStyle.productName}>Product name</Text>
+            <Text style={infoPageStyle.productName}>Product name {items}</Text>
             <Text style={infoPageStyle.productDescription}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, dolorum quo. Nesciunt vero similique, soluta neque dolorum voluptas at sequi facilis fuga. Repellendus quas, dicta dignissimos sed delectus reprehenderit modi.
             </Text>
