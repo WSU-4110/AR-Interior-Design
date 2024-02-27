@@ -22,8 +22,8 @@ export default function LogIn() {
   const handleLogin = () => {
     signInWithEmailAndPassword(getAuth(), email, password)
       .then((user) => {
-        if (user) router.replace("/(tabs)");
-        // if (user) navigateToTabs();
+        // if (user) router.replace("/(tabs)");
+        if (user) navigateToTabs();
       })
       .catch((err) => {
         alert(err?.message);

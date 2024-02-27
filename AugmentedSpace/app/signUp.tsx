@@ -13,7 +13,6 @@ export default function SignUp() {
   const navigation = useNavigation();
 
   const navigateToLogin = () => {
-    // Navigate to SignUp screen
     navigation.navigate("logIn");
   };
 
@@ -25,8 +24,8 @@ export default function SignUp() {
     if (password === passwordValidation) {
       createUserWithEmailAndPassword(getAuth(), email, password)
         .then((user) => {
-          if (user) router.replace("/(tabs)");
-          // if (user) navigateToTabs();
+          // if (user) router.replace("/(tabs)");
+          if (user) navigateToTabs();
         })
         .catch((err) => {
           alert(err?.message);
