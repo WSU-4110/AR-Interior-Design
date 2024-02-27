@@ -1,6 +1,5 @@
-import { initializeApp, getReactNativePersistence } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFireStore } from "firebase/firestore";
+// import { initializeApp } from "firebase/app";
+// import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 // import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
 // Optionally import the services that you want to use
@@ -11,7 +10,7 @@ import { getFireStore } from "firebase/firestore";
 // import {...} from "firebase/storage";
 
 // Initialize Firebase
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.EXPO_PUBLIC_FIREBASE_PROJECTID + ".firebaseapp.com",
   databaseURL:
@@ -26,8 +25,11 @@ const firebaseConfig = {
 // export const FIREBASE_APP = initializeApp(firebaseConfig, {
 //   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 // });
-export const FIREBASE_APP = initializeApp(firebaseConfig);
-export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
-export const FIREBASE_FIRESTORE = getFireStore(FIREBASE_APP);
+// export const FIREBASE_APP = initializeApp(firebaseConfig);
+// export const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
+//   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+// });
+// export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
+// export const FIREBASE_FIRESTORE = getFireStore(FIREBASE_APP);
 // For more information on how to access Firebase in your project,
 // see the Firebase documentation: https://firebase.google.com/docs/web/setup#access-firebase

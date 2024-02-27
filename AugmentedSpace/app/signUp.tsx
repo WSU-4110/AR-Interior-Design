@@ -1,36 +1,38 @@
 import { Text, View } from "@/components/Themed";
-import { Button, Pressable, TextInput } from "react-native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-// import { Linking } from "react-native";
+import { Pressable, TextInput } from "react-native";
 import React, { useState } from "react";
 import { useTheme } from "@react-navigation/native";
-import { FIREBASE_AUTH } from "../firebaseConfig";
-import { useNavigation } from "expo-router";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigation, router } from "expo-router";
 
 export default function SignUp() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordValidation, setPasswordValidation] = useState("");
   const { colors } = useTheme();
   const navigation = useNavigation();
-  const auth = FIREBASE_AUTH;
 
-  const goToSignUp = () => {
+  const navigateToLogin = () => {
     // Navigate to SignUp screen
     navigation.navigate("logIn");
   };
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigateToTabs = () => {
+    navigation.navigate("(tabs)");
+  };
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed up
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
+  const handleRegister = () => {
+    if (password === passwordValidation) {
+      createUserWithEmailAndPassword(getAuth(), email, password)
+        .then((user) => {
+          if (user) router.replace("/(tabs)");
+          // if (user) navigateToTabs();
+        })
+        .catch((err) => {
+          alert(err?.message);
+        });
+    }
+  };
 
   return (
     <View className="flex-1 items-center justify-center align-center px-6 flex flex-col w-full space-y-4 pt-8">
@@ -85,18 +87,26 @@ export default function SignUp() {
             style={{ color: colors.text }}
             placeholder="**********"
             secureTextEntry={true}
+            onChangeText={(passwordValidationInput) =>
+              setPasswordValidation(passwordValidationInput)
+            }
           />
         </View>
       </View>
 
       {/* Register */}
       <View className="pt-6 w-full flex-1 flex space-x-2 justify-between align-center items-center">
-        <Pressable className="h-10 w-full border-2 bg-slate-500 mix-blend-difference rounded-lg text-center items-center justify-center font-semibold">
+        <Pressable
+          className="h-10 w-full border-2 bg-slate-500 mix-blend-difference rounded-lg text-center items-center justify-center font-semibold"
+          onPress={handleRegister}
+        >
           <Text style={{ color: colors.text }}>Sign Up</Text>
         </Pressable>
-        <Text className="py-6" style={{ color: colors.text }}>
-          Already have an account? Log In
-        </Text>
+        <Pressable onPress={navigateToLogin}>
+          <Text className="py-6" style={{ color: colors.text }}>
+            Already have an account? Log In
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
