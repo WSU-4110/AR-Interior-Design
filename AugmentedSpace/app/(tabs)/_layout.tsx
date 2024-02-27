@@ -30,7 +30,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Index",
+          title: "Login Page",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
@@ -65,5 +65,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    
   );
 }
