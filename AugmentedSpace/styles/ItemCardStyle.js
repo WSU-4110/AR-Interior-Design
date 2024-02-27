@@ -49,8 +49,8 @@ export const CardStyle = StyleSheet.create({
     image: {
         flex:1,
         //placeholder image size values
-        //height: 128,
-        //width: 128,
+        height: 128,
+        width: 128,
         borderWidth: 2,
         borderColor: '#000',
         borderRadius: 6
