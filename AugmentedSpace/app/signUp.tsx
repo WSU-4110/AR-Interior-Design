@@ -1,23 +1,22 @@
 import { Text, View } from "@/components/Themed";
-import { Pressable, TextInput } from "react-native";
+import { Pressable, TextInput, SafeAreaView } from "react-native";
 import React, { useState } from "react";
 import { useTheme } from "@react-navigation/native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useNavigation, router } from "expo-router";
+import { router } from "expo-router";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordValidation, setPasswordValidation] = useState("");
   const { colors } = useTheme();
-  const navigation = useNavigation();
 
   const navigateToLogin = () => {
-    navigation.navigate("logIn");
+    router.navigate("logIn");
   };
 
   const navigateToTabs = () => {
-    navigation.navigate("(tabs)");
+    router.replace("/(tabs)");
   };
 
   const handleRegister = () => {
@@ -34,7 +33,7 @@ export default function SignUp() {
   };
 
   return (
-    <View className="flex-1 items-center justify-center align-center px-6 flex flex-col w-full space-y-4 pt-8">
+    <SafeAreaView className="flex-1 items-center justify-center align-center px-6 flex flex-col w-full space-y-4 pt-8">
       {/* Email Input*/}
       <View className="flex flex-col w-full space-y-1">
         <Text
@@ -95,18 +94,25 @@ export default function SignUp() {
 
       {/* Register */}
       <View className="pt-6 w-full flex-1 flex space-x-2 justify-between align-center items-center">
-        <Pressable
-          className="h-10 w-full border-2 bg-slate-500 mix-blend-difference rounded-lg text-center items-center justify-center font-semibold"
-          onPress={handleRegister}
-        >
-          <Text style={{ color: colors.text }}>Sign Up</Text>
-        </Pressable>
-        <Pressable onPress={navigateToLogin}>
+        <View className="w-full">
+          <Pressable
+            className="h-10 w-full border-2 bg-slate-500 mix-blend-difference rounded-lg text-center items-center justify-center font-semibold"
+            onPress={handleRegister}
+          >
+            <Text style={{ color: colors.text }}>Sign Up</Text>
+          </Pressable>
+          <Pressable onPress={navigateToLogin}>
+            <Text className="py-6" style={{ color: colors.text }}>
+              Already have an account? Log In
+            </Text>
+          </Pressable>
+        </View>
+        <Pressable onPress={navigateToTabs}>
           <Text className="py-6" style={{ color: colors.text }}>
-            Already have an account? Log In
+            Continue as Guest
           </Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

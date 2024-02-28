@@ -1,22 +1,21 @@
 import { Text, View } from "@/components/Themed";
-import { Pressable, TextInput } from "react-native";
+import { Pressable, TextInput, SafeAreaView } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
-import { useNavigation, router } from "expo-router";
+import { router } from "expo-router";
 import { useState } from "react";
 
 export default function LogIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { colors } = useTheme();
-  const navigation = useNavigation();
 
   const navigateToSignUp = () => {
-    navigation.navigate("signUp");
+    router.navigate("signUp");
   };
 
   const navigateToTabs = () => {
-    navigation.navigate("(tabs)");
+    router.replace("/(tabs)");
   };
 
   const handleLogin = () => {
@@ -31,7 +30,7 @@ export default function LogIn() {
   };
 
   return (
-    <View className="flex-1 items-center justify-center px-6 pt-4 flex flex-col w-full space-y-4">
+    <SafeAreaView className="flex-1 items-center justify-center px-6 pt-4 flex flex-col w-full space-y-4">
       {/* Email Input*/}
       <View className="flex flex-col w-full space-y-1">
         <Text
@@ -83,6 +82,6 @@ export default function LogIn() {
           <Text style={{ color: colors.text }}>Continue as Guest</Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

@@ -13,10 +13,12 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo/ngrok": "^4.1.0",
     "@expo/vector-icons": "^14.0.0",
     "@react-native-async-storage/async-storage": "^1.22.2",
     "@react-navigation/native": "^6.0.2",
     "expo": "~50.0.6",
+    "expo-constants": "~15.4.5",
     "expo-font": "~11.10.2",
     "expo-linking": "~6.2.2",
     "expo-router": "~3.4.7",
