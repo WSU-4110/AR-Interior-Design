@@ -12,7 +12,7 @@ export const infoPageStyle = StyleSheet.create({
     },
     productImage: {
         width: 250,
-        height: 300,
+        height: 280,
     },
     view360Button: {
         position: 'absolute',
@@ -70,6 +70,14 @@ export const infoPageStyle = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 40,
         borderRadius: 20,
-        marginTop: 20,
-}
+        marginTop: 0,
+    },
+    starRating: {
+        flexDirection: 'row',
+        justifyContent:'space-between',
+        alignItems: 'center',
+        marginBottom: 20,
+        color: '#666',
+        
+    }
 });

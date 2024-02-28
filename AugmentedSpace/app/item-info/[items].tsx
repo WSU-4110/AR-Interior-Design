@@ -1,10 +1,16 @@
-import React from 'react';
-import { Alert, View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { infoPageStyle } from '@/styles/itemInfoPageStyles';
-import { useRouter } from 'expo-router';
 import { useLocalSearchParams } from 'expo-router';
+import React, { useState } from 'react';
+import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import StarRating from 'react-native-star-rating';
 const ProductScreen = () => {
     const {items} = useLocalSearchParams();
+    const [starCount, setStarCount] = useState(0);
+
+    const onStarRatingPress = (rating: number) => {
+        setStarCount(rating);
+        Alert.alert('Rating', `You have given a rating of ${rating} stars.`);
+    };
 return (
     <ScrollView style={infoPageStyle.container}>
       {/* Product image */}
@@ -19,15 +25,24 @@ return (
             </TouchableOpacity>
         </View>
         <View style={infoPageStyle.detailsContainer}>
-            <Text style={infoPageStyle.productName}>Product name {items}</Text>
+            
+            <View style={infoPageStyle.starRating}>
+                <Text style={infoPageStyle.productName}>Product name {items}</Text>
+                <StarRating
+                    disabled={false}
+                    maxStars={5}
+                    rating={starCount}
+                    selectedStar={(rating: number) => onStarRatingPress(rating)}
+                    fullStarColor={'gold'}
+                    emptyStarColor={'grey'}/>
+            </View>
             <Text style={infoPageStyle.productDescription}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, dolorum quo. Nesciunt vero similique, soluta neque dolorum voluptas at sequi facilis fuga. Repellendus quas, dicta dignissimos sed delectus reprehenderit modi.
             </Text>
             <View style={infoPageStyle.priceRow}>
                 <TouchableOpacity style={infoPageStyle.buyButton} onPress={() => Alert.alert("Buy button pressed")}>
-                    <Text style={infoPageStyle.buyButtonText}>Buy</Text>
+                    <Text style={infoPageStyle.buyButtonText}>Buy <Text style={infoPageStyle.priceText}>$99.99</Text></Text>
                 </TouchableOpacity>
-            <Text style={infoPageStyle.priceText}>$99.99</Text>
             </View>
                 <TouchableOpacity style={infoPageStyle.viewInYourRoomButton} onPress={() => Alert.alert("View in Room button pressed")}>
                     <Text style={infoPageStyle.buyButtonText}>View In Your Room</Text>
