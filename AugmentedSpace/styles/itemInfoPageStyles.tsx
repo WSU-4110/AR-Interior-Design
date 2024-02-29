@@ -50,6 +50,9 @@ export const infoPageStyle = StyleSheet.create({
         marginBottom: 20,
     },
     buyButton: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: 'lightblue',
         paddingVertical: 20,
         paddingHorizontal: 40,
@@ -66,6 +69,8 @@ export const infoPageStyle = StyleSheet.create({
         color: '#333',
     },
     viewInYourRoomButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: 'lightblue',
         paddingVertical: 20,
         paddingHorizontal: 40,
