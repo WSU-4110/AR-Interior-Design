@@ -5,20 +5,19 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
+  Pressable,
 } from "react-native";
 import { router } from "expo-router";
 import { getAuth } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
 import ItemCard from "@/components/ItemCard";
 
-import { CardStyle } from "@/styles/ItemCardStyle";
-
 export default function CatalogScreen() {
   const { colors } = useTheme();
   const { currentUser } = getAuth();
 
   var loop = [];
-  for (let i = 1; i <= 24; i++) {
+  for (let i = 1; i <= 50; i++) {
     loop.push(i);
   }
 
@@ -35,28 +34,30 @@ export default function CatalogScreen() {
         <Text style={{ color: colors.text }}>Test Input</Text>
       </TextInput>
 
-      <View className="w-full">
-        <FlatList
-          className="bg-red-500 w-full"
-          contentContainerStyle={CardStyle.listContainer}
-          data={loop}
-          numColumns={2}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => router.push({
-              pathname: '/item-info/[items]',
-              params: {
-                  items: item
-              }})
-          }>
-              <ItemCard
-                itemName={"test"}
-                brandName={"brandName"}
-                itemCost={24.99}
-              />
-            </TouchableOpacity>
-          )}
-        ></FlatList>
-      </View>
+      <FlatList
+        className="flex flex-1 h-full w-full p-2"
+        contentContainerStyle={{
+          gap: 10,
+          justifyContent: "space-around",
+        }}
+        data={loop}
+        numColumns={2}
+        renderItem={({ item }) => (
+          <ItemCard
+            onPress={() =>
+              router.push({
+                pathname: "/item-info/[items]",
+                params: {
+                  items: item,
+                },
+              })
+            }
+            itemName={"product name " + item}
+            brandName={"brand name"}
+            itemCost={24.99}
+          />
+        )}
+      ></FlatList>
     </View>
   );
 }

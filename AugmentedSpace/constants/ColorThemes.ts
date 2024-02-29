@@ -1,6 +1,7 @@
 export const CustomColors = {
   light: '#FAFAFA',
   dark: '#1A1A1A',
+  lightCardColor: '#FFFFFF',
   darkCardColor: '#121212',
   darkAccentColor: '#686963',
   primaryColor: '#DB5461',
@@ -16,7 +17,7 @@ export const LightTheme = {
   colors: {
     primary: CustomColors.primaryColor,
     background: CustomColors.light,
-    card: CustomColors.dark,
+    card: CustomColors.lightCardColor,
     text: CustomColors.dark,
     border: CustomColors.light,
     notification: CustomColors.iconColor,

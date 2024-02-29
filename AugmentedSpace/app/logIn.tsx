@@ -5,6 +5,7 @@ import { useTheme } from "@react-navigation/native";
 import { router } from "expo-router";
 import { useState, useEffect } from "react";
 import { resetRouterAndReRoute } from "./_layout";
+import { ShowPopup } from "@/components/popup";
 
 export default function LogInScreen() {
   const [email, setEmail] = useState<string>("");
@@ -26,7 +27,7 @@ export default function LogInScreen() {
         if (user) resetRouterAndReRoute("/(tabs)");
       })
       .catch((err) => {
-        alert(err?.message);
+        ShowPopup(err?.message);
       });
   };
 
