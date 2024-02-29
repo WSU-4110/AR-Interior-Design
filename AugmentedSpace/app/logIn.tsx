@@ -15,7 +15,7 @@ export default function LogIn() {
   };
 
   const navigateToTabs = () => {
-    router.replace("/(tabs)");
+    router.replace("/(tabs)/catalog");
   };
 
   const handleLogin = () => {

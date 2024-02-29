@@ -48,9 +48,9 @@ export const CardStyle = StyleSheet.create({
 
     image: {
         flex:1,
-        //placeholder image size values
-        height: 128,
-        width: 128,
+        //placeholder image size values: creates 3 rows iphone 15 pro max
+        height: 96,
+        width: 96,
         borderWidth: 2,
         borderColor: '#000',
         borderRadius: 6
