@@ -41,7 +41,7 @@ export default function CatalogScreen() {
           justifyContent: "space-around",
         }}
         data={loop}
-        numColumns={2}
+        numColumns={1}
         renderItem={({ item }) => (
           <ItemCard
             onPress={() =>
