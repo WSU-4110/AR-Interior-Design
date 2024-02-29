@@ -5,6 +5,7 @@ import { useTheme } from "@react-navigation/native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { router } from "expo-router";
 import { resetRouterAndReRoute } from "./_layout";
+import { ShowPopup } from "@/components/popup";
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState("");
@@ -21,6 +22,8 @@ export default function SignUpScreen() {
         .catch((err) => {
           alert(err?.message);
         });
+    } else {
+      ShowPopup("Passwords do not match");
     }
   };
 
