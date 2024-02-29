@@ -90,7 +90,15 @@ function RootLayoutNav() {
             },
           }}
         />
-        <Stack.Screen name="signUp" options={{ headerTitle: "Sign Up" }} />
+        <Stack.Screen
+          name="signUp"
+          options={{
+            headerTitle: "Sign Up",
+            headerTitleStyle: {
+              color: DarkTheme.colors.text,
+            },
+          }}
+        />
         <Stack.Screen
           name="setting"
           options={{
