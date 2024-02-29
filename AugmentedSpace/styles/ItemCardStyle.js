@@ -57,9 +57,9 @@ export const CardStyle = StyleSheet.create({
     },
 
     listContainer: {
-        flexDirection:"row",
-        justifyContent: 'center',
-        flexWrap: 'wrap'
+        flexDirection:"column",
+        gap: 8,
+        justifyContent: "center",
     }
 
 }) 

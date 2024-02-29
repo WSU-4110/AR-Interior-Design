@@ -13,7 +13,7 @@ import ItemCard from "@/components/ItemCard";
 
 import { CardStyle } from "@/styles/ItemCardStyle";
 
-export default function Catalog() {
+export default function IndexScreen() {
   const { colors } = useTheme();
   const { currentUser } = getAuth();
 
@@ -23,7 +23,7 @@ export default function Catalog() {
   }
 
   return (
-    <SafeAreaView className="flex-1 items-center justify-center my-4">
+    <View className="flex-1 items-center justify-center my-4">
       <TextInput
         className="rounded w-full h-20 bg-slate-300 rounded-r-xl align-middle content-center p-2 justify-center"
         style={{ color: colors.text }}
@@ -32,10 +32,12 @@ export default function Catalog() {
         <Text style={{ color: colors.text }}>Test Input</Text>
       </TextInput>
 
-      <View className="flex-row flex-wrap items-center">
+      <View className="w-full">
         <FlatList
+          className="bg-red-500 w-full"
           contentContainerStyle={CardStyle.listContainer}
           data={loop}
+          numColumns={2}
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => Alert.alert(`card ${item} touched`)}
@@ -49,6 +51,6 @@ export default function Catalog() {
           )}
         ></FlatList>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
