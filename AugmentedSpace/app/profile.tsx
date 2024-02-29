@@ -1,0 +1,64 @@
+import { StatusBar } from "expo-status-bar";
+import { Platform, Pressable } from "react-native";
+import { Text, View } from "@/components/Themed";
+import { useTheme } from "@react-navigation/native";
+import { signOut, getAuth } from "firebase/auth";
+import { router } from "expo-router";
+
+const signOutAndReroute = () => {
+  signOut(getAuth());
+  router.replace("/logIn");
+};
+
+export default function ProfileScreen() {
+  const { colors } = useTheme();
+  const { currentUser } = getAuth();
+
+  return (
+    <View className="flex-1 items-center justify-center">
+      <Text className="font-bold text-xl" style={{ color: colors.text }}>
+        Profile Screen
+      </Text>
+      <View
+        className="my-8 h-1 w-4/5"
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
+      />
+
+      {currentUser ? (
+        <Text
+          className="text-center my-4 justify-center"
+          style={{ color: colors.text }}
+        >
+          Logged in as {currentUser?.email}
+        </Text>
+      ) : (
+        <Text
+          className="text-center my-4 justify-center"
+          style={{ color: colors.text }}
+        >
+          Logged in as Guest
+        </Text>
+      )}
+
+      {currentUser ? (
+        <Pressable
+          className="bg-slate-500 py-2 px-4"
+          onPress={signOutAndReroute}
+        >
+          <Text style={{ color: colors.text }}>Sign Out</Text>
+        </Pressable>
+      ) : (
+        <Pressable
+          className="bg-slate-500 py-2 px-4"
+          onPress={() => router.replace("/logIn")}
+        >
+          <Text style={{ color: colors.text }}>Log In</Text>
+        </Pressable>
+      )}
+
+      {/* Use a light status bar on iOS to account for the black space above the modal */}
+      <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
+    </View>
+  );
+}
