@@ -13,7 +13,7 @@ export default function ItemCard(props: ItemCardProps) {
   const { colors } = useTheme();
   return (
     <Pressable
-      className="grow mx-1 p-2"
+      className="w-1/2 grow mx-1 p-2"
       onPress={props.onPress}
       style={{
         backgroundColor: colors.card,
