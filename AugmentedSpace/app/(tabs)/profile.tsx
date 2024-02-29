@@ -4,7 +4,6 @@ import { Text, View } from "@/components/Themed";
 import { useTheme } from "@react-navigation/native";
 import { signOut, getAuth } from "firebase/auth";
 import { router } from "expo-router";
-import { resetRouterAndReRoute } from "./_layout";
 
 const signOutAndReroute = async () => {
   await signOut(getAuth());
@@ -38,7 +37,7 @@ export default function ProfileScreen() {
           className="text-center my-4 justify-center"
           style={{ color: colors.text }}
         >
-          Logged in as Guest
+          Currently browsing as a guest.
         </Text>
       )}
 
