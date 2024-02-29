@@ -47,8 +47,10 @@ export default function AR_View() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item}>
-            <Text style={styles.cityText}>{item.city}</Text>
-            <Text style={styles.idText}>{item.id}</Text>
+            <View style={styles.rowContainer}>
+          <Text style={styles.idText}>{item.id}</Text>
+          <Text style={styles.cityText}>{item.city}</Text>
+        </View>
             <TouchableOpacity onPress={navigateToStore} style={styles.button}>
               <Text style={styles.buttonText}>Go to Store</Text>
             </TouchableOpacity>
@@ -75,14 +77,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 2, // Add shadow for a modern look
   },
-  cityText: {
-    color: 'black', // Black text color
-    fontSize: 16,
-    fontWeight: 'bold',
+  rowContainer: {
+    flexDirection: 'column',
+    flex: 1,
   },
-  idText: {
+  cityText: {
     color: '#888', // Gray text color
     fontSize: 14,
+  },
+  idText: {
+    color: 'black', // Black text color
+    fontSize: 16,
+    fontWeight: 'bold'
   },
   button: {
     backgroundColor: '#007BFF', // Blue button background
