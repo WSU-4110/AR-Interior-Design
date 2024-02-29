@@ -5,6 +5,7 @@ type ItemCardProps = {
   itemName: string;
   brandName: string;
   itemCost: number;
+  className?: string;
   onPress?: () => void;
 };
 
@@ -12,7 +13,7 @@ export default function ItemCard(props: ItemCardProps) {
   const { colors } = useTheme();
   return (
     <Pressable
-      className="h-full w-1/2 grow mx-1 p-2"
+      className="grow mx-1 p-2"
       onPress={props.onPress}
       style={{
         backgroundColor: colors.card,
