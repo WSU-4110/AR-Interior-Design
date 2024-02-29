@@ -42,9 +42,12 @@ export default function CatalogScreen() {
           data={loop}
           numColumns={2}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => Alert.alert(`card ${item} touched`)}
-            >
+            <TouchableOpacity onPress={() => router.push({
+              pathname: '/item-info/[items]',
+              params: {
+                  items: item
+              }})
+          }>
               <ItemCard
                 itemName={"test"}
                 brandName={"brandName"}
