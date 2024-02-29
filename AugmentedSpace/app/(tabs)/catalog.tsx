@@ -37,9 +37,12 @@ export default function Catalog() {
           contentContainerStyle={CardStyle.listContainer}
           data={loop}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => Alert.alert(`card ${item} touched`)}
-            >
+            <TouchableOpacity onPress={() => router.push({
+              pathname: '/item-info/[items]',
+              params: {
+                  items: item
+              }})
+          }>
               <ItemCard
                 itemName={"test"}
                 brandName={"brandName"}
