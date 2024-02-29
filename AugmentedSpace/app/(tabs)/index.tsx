@@ -13,7 +13,7 @@ import ItemCard from "@/components/ItemCard";
 
 import { CardStyle } from "@/styles/ItemCardStyle";
 
-export default function IndexScreen() {
+export default function CatalogScreen() {
   const { colors } = useTheme();
   const { currentUser } = getAuth();
 
@@ -23,7 +23,10 @@ export default function IndexScreen() {
   }
 
   return (
-    <View className="flex-1 items-center justify-center my-4">
+    <View
+      className="flex-1 items-center justify-center my-4"
+      style={{ backgroundColor: colors.background }}
+    >
       <TextInput
         className="rounded w-full h-20 bg-slate-300 rounded-r-xl align-middle content-center p-2 justify-center"
         style={{ color: colors.text }}

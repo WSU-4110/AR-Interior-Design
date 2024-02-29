@@ -15,7 +15,10 @@ export default function ProfileScreen() {
   const { currentUser } = getAuth();
 
   return (
-    <View className="flex-1 items-center justify-center">
+    <View
+      className="flex-1 items-center justify-center"
+      style={{ backgroundColor: colors.background }}
+    >
       <Text className="font-bold text-xl" style={{ color: colors.text }}>
         Profile Screen
       </Text>
@@ -43,14 +46,14 @@ export default function ProfileScreen() {
 
       {currentUser ? (
         <Pressable
-          className="bg-slate-500 py-2 px-4"
+          className="bg-primaryColor py-2 px-4 rounded-md"
           onPress={signOutAndReroute}
         >
           <Text className="text-white">Sign Out</Text>
         </Pressable>
       ) : (
         <Pressable
-          className="bg-slate-500 py-2 px-4"
+          className="bg-primaryColor py-2 px-4 rounded-md"
           onPress={() => router.navigate("/logIn")}
         >
           <Text className="text-white">Log In</Text>

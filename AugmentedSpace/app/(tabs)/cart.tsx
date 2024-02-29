@@ -1,8 +1,14 @@
 import { Text, View } from "@/components/Themed";
+import { useTheme } from "@react-navigation/native";
 
 export default function Cart() {
+  const { colors } = useTheme();
+
   return (
-    <View className="flex-1 items-center justify-center">
+    <View
+      className="flex-1 items-center justify-center"
+      style={{ backgroundColor: colors.background }}
+    >
       <Text className="font-bold text-xl">This Is Your Cart</Text>
       <View
         className="my-8 h-1 w-4/5"

@@ -1,15 +1,12 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack, router } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
+import { LightTheme, DarkTheme } from "@/constants/ColorThemes";
 import { initializeApp } from "firebase/app";
 import {
   initializeAuth,
@@ -82,16 +79,33 @@ function RootLayoutNav() {
   const { currentUser } = getAuth();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      {/* <Stack initialRouteName={currentUser ? "logIn" : "(tabs)"}> */}
-      <Stack>
-        <Stack.Screen name="logIn" options={{ headerTitle: "Log In" }} />
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : LightTheme}>
+      <Stack initialRouteName={currentUser ? "logIn" : "(tabs)"}>
+        <Stack.Screen
+          name="logIn"
+          options={{
+            headerTitle: "Log In",
+            headerTitleStyle: {
+              color: DarkTheme.colors.text,
+            },
+          }}
+        />
         <Stack.Screen name="signUp" options={{ headerTitle: "Sign Up" }} />
         <Stack.Screen
-          name="profile"
-          options={{ headerTitle: "User Profile" }}
+          name="setting"
+          options={{
+            headerTitle: "App Settings",
+            headerTitleStyle: {
+              color: DarkTheme.colors.text,
+            },
+          }}
         />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(tabs)"
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );

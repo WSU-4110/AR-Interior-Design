@@ -1,5 +1,5 @@
 import { Text, View } from "@/components/Themed";
-import { Pressable, TextInput, SafeAreaView } from "react-native";
+import { Pressable, TextInput } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
 import { router } from "expo-router";
@@ -31,16 +31,25 @@ export default function LogInScreen() {
   };
 
   return (
-    <View className="flex-1  items-center justify-center px-6 pt-4 flex flex-col w-full space-y-4">
+    <View
+      className="flex-1 items-center justify-center px-6 pt-4 flex flex-col w-full space-y-4"
+      style={{ backgroundColor: colors.background }}
+    >
       {/* Email Input*/}
-      <View className="flex flex-col w-full space-y-1 mt-[45%]">
+      <View
+        className="flex flex-col w-full space-y-1 mt-[45%]"
+        style={{ backgroundColor: colors.background }}
+      >
         <Text
           className="text-md font-semibold text-white"
           style={{ color: colors.text }}
         >
           Email
         </Text>
-        <View className="w-full flex h-10 border-2 border-slate-500 rounded-md align-middle content-center text-center p-2">
+        <View
+          className="w-full flex h-10 border-2 border-slate-500 rounded-md align-middle content-center text-center p-2"
+          style={{ backgroundColor: colors.background }}
+        >
           <TextInput
             className="align-middle h-full"
             style={{ color: colors.text }}
@@ -51,15 +60,21 @@ export default function LogInScreen() {
       </View>
 
       {/* Password Input*/}
-      <View className="flex flex-col w-full space-y-1">
+      <View
+        className="flex flex-col w-full space-y-1"
+        style={{ backgroundColor: colors.background }}
+      >
         <Text className="text-md font-semibold" style={{ color: colors.text }}>
           Password
         </Text>
-        <View className="w-full flex h-10 border-2 border-slate-500 rounded-md align-middle content-center text-center p-2">
+        <View
+          className="w-full flex h-10 border-2 border-slate-500 rounded-md align-middle content-center text-center p-2"
+          style={{ backgroundColor: colors.background }}
+        >
           <TextInput
             className="align-middle h-full"
             style={{ color: colors.text }}
-            placeholder="**********"
+            placeholder={"**********"}
             secureTextEntry={true}
             onChangeText={(text) => setPassword(text)}
           />
@@ -67,9 +82,12 @@ export default function LogInScreen() {
       </View>
 
       {/* Login Button */}
-      <View className="pt-6 w-full flex-1 flex space-x-2 justify-between align-center items-center">
+      <View
+        className="pt-6 w-full flex-1 flex space-x-2 justify-between align-center items-center"
+        style={{ backgroundColor: colors.background }}
+      >
         <Pressable
-          className="h-10 w-full bg-slate-500 mix-blend-difference rounded-lg text-white text-center items-center justify-center font-semibold"
+          className="h-10 w-full bg-primaryColor mix-blend-difference rounded-lg text-center items-center justify-center font-semibold"
           onPress={handleLogin}
         >
           <Text className="text-white">Login</Text>
@@ -95,7 +113,7 @@ export default function LogInScreen() {
             style={{ color: colors.text }}
           >
             Don't have an account?{" "}
-            <Text className="text-cyan-500"> Sign Up</Text>
+            <Text className="text-hyperlinkColor"> Sign Up</Text>
           </Text>
         </Pressable>
       </View>
