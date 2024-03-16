@@ -1,10 +1,11 @@
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, ImageSourcePropType, Pressable, Text, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
 type ItemCardProps = {
   itemName: string;
   brandName: string;
   itemCost: number;
+  imagePath: ImageSourcePropType;
   className?: string;
   onPress?: () => void;
 };
@@ -24,7 +25,7 @@ export default function ItemCard(props: ItemCardProps) {
     >
       <Image
         className="self-center h-32 w-32 my-2"
-        source={require("@/assets/images/favicon.png")}
+        source={props.imagePath}
       />
       <View
         className="m-1">

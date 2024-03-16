@@ -27,8 +27,14 @@ export default function CatalogScreen() {
       style={{ backgroundColor: colors.background }}
     >
       <TextInput
-        className="rounded w-full h-20 bg-slate-300 rounded-r-xl align-middle content-center p-2 justify-center"
-        style={{ color: colors.text }}
+        className="flex w-full h-10 bg-slate-300 rounded-xl align-middle content-center p-2 justify-center m-1"
+        style={{ 
+          color: colors.text, 
+          backgroundColor: colors.card,
+          shadowOffset: { width: 2, height: 2 },
+          shadowColor: colors.shadow,
+          shadowOpacity:1
+        }}
         placeholder="Search for items"
       >
         <Text style={{ color: colors.text }}>Test Input</Text>
@@ -54,6 +60,7 @@ export default function CatalogScreen() {
             }
             itemName={"product name " + item}
             brandName={"brand name"}
+            imagePath={require("@/assets/images/favicon.png")}
             itemCost={24.99}
           />
         )}
