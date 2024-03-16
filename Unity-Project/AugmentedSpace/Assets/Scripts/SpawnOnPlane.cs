@@ -10,6 +10,9 @@ public class SpawnOnPlane : MonoBehaviour
     //Declare Variables
     private ARRaycastManager m_RaycastManager;
     private GameObject spawnObject = null;
+    private List<GameObject> spawnedObjs = new List<GameObject>(); //keeps a list of objects
+    private int maxSpawnCount = 0; //a max of how many objexts can be spawned at once
+    private int spawnCount = 0; // current count of spawned objects
 
     [SerializeField]
     private GameObject placePrefab;
@@ -24,7 +27,7 @@ public class SpawnOnPlane : MonoBehaviour
 
     bool tryGetTouchPos(out Vector2 pos)
     {
-        if (Input.touchCount > 0)
+        if (Input.GetTouch(0).phase == TouchPhase.Began) //Ensures one prefab is loaded on touch
         {
             pos = Input.GetTouch(0).position;
             return true;
@@ -53,12 +56,16 @@ public class SpawnOnPlane : MonoBehaviour
             var hitPose = s_Hits[0].pose;
             if(spawnObject == null)
             {
-                spawnObject = Instantiate(placePrefab, hitPose.position, hitPose.rotation);
+                spawnPrefab(hitPose);
             }
             else
             {
-                spawnObject.transform.position = hitPose.position;
-                spawnObject.transform.rotation = hitPose.rotation;
+                if(spawnCount < maxSpawnCount)
+                {
+                    spawnPrefab(hitPose);
+                }
+                //spawnObject.transform.position = hitPose.position;
+                //spawnObject.transform.rotation = hitPose.rotation;
             }
         }
     }
@@ -66,5 +73,12 @@ public class SpawnOnPlane : MonoBehaviour
     public void setPrefabType(GameObject prefab)
     {
         placePrefab = prefab;
+    }
+
+    private void spawnPrefab(Pose hitPose) //to get rid of repeated code
+    {
+        spawnObject = Instantiate(placePrefab, hitPose.position, hitPose.rotation);
+        spawnedObjs.Add(spawnObject);
+        spawnCount++;
     }
 }
