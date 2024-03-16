@@ -62,4 +62,9 @@ public class SpawnOnPlane : MonoBehaviour
             }
         }
     }
+
+    public void setPrefabType(GameObject prefab)
+    {
+        placePrefab = prefab;
+    }
 }
