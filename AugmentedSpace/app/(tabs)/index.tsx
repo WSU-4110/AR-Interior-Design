@@ -12,6 +12,8 @@ import { getAuth } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
 import ItemCard from "@/components/ItemCard";
 
+//Assignment 4 story: Catalog screen from Sprint 1, composite design
+
 export default function CatalogScreen() {
   const { colors } = useTheme();
   const { currentUser } = getAuth();
