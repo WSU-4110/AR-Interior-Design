@@ -11,7 +11,7 @@ public class SpawnOnPlane : MonoBehaviour
     private ARRaycastManager m_RaycastManager;
     private GameObject spawnObject = null;
     private List<GameObject> spawnedObjs = new List<GameObject>(); //keeps a list of objects
-    private int maxSpawnCount = 0; //a max of how many objexts can be spawned at once
+    private int maxSpawnCount = 5; //a max of how many objexts can be spawned at once
     private int spawnCount = 0; // current count of spawned objects
 
     [SerializeField]
