@@ -14,7 +14,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { FirebaseInstance } from "../services/firebase";
 
 interface FurnitureStore {
   id: string;
@@ -24,7 +24,7 @@ interface FurnitureStore {
 export default function AR_View() {
   const { colors } = useTheme();
   const [furnitureStores, setFurnitureStores] = useState<FurnitureStore[]>([]);
-  const { currentUser } = getAuth();
+  const { currentUser } = FirebaseInstance.getAuth();
   const firestore = getFirestore();
 
   // Function to fetch furniture stores from Firestore

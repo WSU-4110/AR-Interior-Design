@@ -1,6 +1,7 @@
 import { Text, View } from "@/components/Themed";
 import { Pressable, TextInput } from "react-native";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { FirebaseInstance } from "./services/firebase";
 import { useTheme } from "@react-navigation/native";
 import { router } from "expo-router";
 import { useState, useEffect } from "react";
@@ -13,7 +14,7 @@ export default function LogInScreen() {
   const { colors } = useTheme();
 
   useEffect(() => {
-    const { currentUser } = getAuth();
+    const { currentUser } = FirebaseInstance.getAuth();
     if (currentUser) resetRouterAndReRoute("/(tabs)");
   }, []);
 
@@ -22,7 +23,7 @@ export default function LogInScreen() {
   };
 
   const handleLogin = () => {
-    signInWithEmailAndPassword(getAuth(), email, password)
+    signInWithEmailAndPassword(FirebaseInstance.getAuth(), email, password)
       .then((user) => {
         if (user) resetRouterAndReRoute("/(tabs)");
       })

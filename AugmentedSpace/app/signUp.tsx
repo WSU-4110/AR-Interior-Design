@@ -2,7 +2,8 @@ import { Text, View } from "@/components/Themed";
 import { Pressable, TextInput } from "react-native";
 import React, { useState } from "react";
 import { useTheme } from "@react-navigation/native";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { FirebaseInstance } from "./services/firebase";
 import { router } from "expo-router";
 import { resetRouterAndReRoute } from "./_layout";
 import { ShowPopup } from "@/components/popup";
@@ -15,7 +16,11 @@ export default function SignUpScreen() {
 
   const handleRegister = () => {
     if (password === passwordValidation) {
-      createUserWithEmailAndPassword(getAuth(), email, password)
+      createUserWithEmailAndPassword(
+        FirebaseInstance.getAuth(),
+        email,
+        password
+      )
         .then((user) => {
           if (user) resetRouterAndReRoute("/(tabs)");
         })

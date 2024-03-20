@@ -8,13 +8,13 @@ import {
   Pressable,
 } from "react-native";
 import { router } from "expo-router";
-import { getAuth } from "firebase/auth";
+import { FirebaseInstance } from "../services/firebase";
 import { useTheme } from "@react-navigation/native";
 import ItemCard from "@/components/ItemCard";
 
 export default function CatalogScreen() {
   const { colors } = useTheme();
-  const { currentUser } = getAuth();
+  const { currentUser } = FirebaseInstance.getAuth();
 
   var loop = [];
   for (let i = 1; i <= 50; i++) {
