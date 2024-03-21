@@ -58,9 +58,6 @@ const ProductScreen = () => {
           style={infoPageStyle.productImage}
           resizeMode="contain"
         />
-        <TouchableOpacity style={infoPageStyle.view360Button}>
-          <Text>360°</Text>
-        </TouchableOpacity>
       </View>
       <View style={infoPageStyle.detailsContainer}>
         <View style={infoPageStyle.starRating}>

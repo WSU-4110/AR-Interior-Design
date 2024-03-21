@@ -57,8 +57,8 @@ export default function CatalogScreen() {
     >
       <TextInput
         className="flex w-full h-10 bg-slate-300 rounded-xl align-middle content-center p-2 justify-center m-1"
-        style={{ 
-          color: colors.text, 
+        style={{
+          color: colors.text,
           backgroundColor: colors.card,
           shadowOffset: { width: 2, height: 2 },
           shadowColor: colors.shadow,
