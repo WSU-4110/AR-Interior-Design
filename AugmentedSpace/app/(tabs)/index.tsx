@@ -1,25 +1,54 @@
 import { Text, View } from "@/components/Themed";
-import {
-  SafeAreaView,
-  Alert,
-  TouchableOpacity,
-  FlatList,
-  TextInput,
-  Pressable,
-} from "react-native";
+import { FlatList, TextInput } from "react-native";
 import { router } from "expo-router";
 import { getAuth } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
 import ItemCard from "@/components/ItemCard";
+import { useEffect, useState } from "react";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+} from "firebase/firestore";
+
+
+interface item {
+  itemName: string;
+  brandName: string;
+  imagePath: string;
+  price: number;
+}
 
 export default function CatalogScreen() {
   const { colors } = useTheme();
-  const { currentUser } = getAuth();
+  const { currentUser } = getAuth();  
+  const [products, setProducts] = useState<item[]>([]);
+  const firestore = getFirestore();
 
-  var loop = [];
-  for (let i = 1; i <= 50; i++) {
-    loop.push(i);
+  //function to fetch items from firestore
+  const fetchItems = async () => {
+    const q = query(collection(firestore, "FURNITUREITEMS"));
+    const querySnapshot = await getDocs(q);
+    const itemsList: item[] = [];
+    querySnapshot.forEach((doc) => {
+      itemsList.push({
+        itemName: doc.data().name,
+        brandName: doc.data().brand,
+        imagePath: doc.data().image,
+        price: doc.data().price
+      });
+
+      console.log("document data pushed to itemsList for id: " + doc.id);
+
+    });
+    setProducts(itemsList);
   }
+
+  //fetch furniture items on component mount
+  useEffect(() => {
+    fetchItems();
+  }, [])
 
   return (
     <View
@@ -27,8 +56,14 @@ export default function CatalogScreen() {
       style={{ backgroundColor: colors.background }}
     >
       <TextInput
-        className="rounded w-full h-20 bg-slate-300 rounded-r-xl align-middle content-center p-2 justify-center"
-        style={{ color: colors.text }}
+        className="flex w-full h-10 bg-slate-300 rounded-xl align-middle content-center p-2 justify-center m-1"
+        style={{ 
+          color: colors.text, 
+          backgroundColor: colors.card,
+          shadowOffset: { width: 2, height: 2 },
+          shadowColor: colors.shadow,
+          shadowOpacity:1
+        }}
         placeholder="Search for items"
       >
         <Text style={{ color: colors.text }}>Test Input</Text>
@@ -40,7 +75,7 @@ export default function CatalogScreen() {
           gap: 10,
           justifyContent: "space-around",
         }}
-        data={loop}
+        data={products}
         numColumns={2}
         renderItem={({ item }) => (
           <ItemCard
@@ -48,13 +83,17 @@ export default function CatalogScreen() {
               router.push({
                 pathname: "/item-info/[items]",
                 params: {
-                  items: item,
+                  items: item.itemName,
+                  imageSource: item.imagePath,
+                  itemCost: item.price,
+                  brandName: item.brandName
                 },
               })
             }
-            itemName={"product name " + item}
-            brandName={"brand name"}
-            itemCost={24.99}
+            itemName={item.itemName}
+            brandName={item.brandName}
+            imagePath={item.imagePath}
+            itemCost={item.price}
           />
         )}
       ></FlatList>

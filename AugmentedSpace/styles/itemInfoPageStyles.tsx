@@ -1,14 +1,20 @@
 import { StyleSheet } from "react-native"
 import Colors from '@/constants/Colors'
+import { useTheme } from "@react-navigation/native";
+
+const { colors } = useTheme();
+
 export const infoPageStyle = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: colors.background
+        
     },
     imageContainer: {
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 100,
+        backgroundColor: colors.background
     },
     productImage: {
         width: 250,
@@ -53,7 +59,7 @@ export const infoPageStyle = StyleSheet.create({
         backgroundColor: 'lightblue',
         paddingVertical: 20,
         paddingHorizontal: 40,
-        borderRadius: 20,
+        borderRadius: 20
     },
     buyButtonText: {
         color: 'black',
