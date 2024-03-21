@@ -1,30 +1,40 @@
-import { View } from '@/components/Themed';
-import { CardStyle } from '@/styles/ItemCardStyle';
-import { Image, Text } from 'react-native';
-
+import { Image, Pressable, Text } from "react-native";
+import { useTheme } from "@react-navigation/native";
 
 type ItemCardProps = {
-    itemName: String,
-    brandName: String,
-    itemCost: number,
-}
+  itemName: string;
+  brandName: string;
+  itemCost: number;
+  className?: string;
+  onPress?: () => void;
+};
 
 export default function ItemCard(props: ItemCardProps) {
-
-
-    return (
-        <View style={CardStyle.card}>
-            <View style={CardStyle.content}>
-                {/* { props.itemName } */}
-                <Image source={require("@/assets/images/favicon.png")} 
-                                style={CardStyle.image}/> 
-                <Text style={CardStyle.itemText}>{props.itemName}</Text>
-                <Text style={CardStyle.brandText}>
-                    {props.brandName}
-                </Text>
-                <Text style={CardStyle.priceText}>{props.itemCost}</Text>
-            </View>
-        </View>
-    )
+  const { colors } = useTheme();
+  return (
+    <Pressable
+      className="w-1/2 grow mx-1 p-2"
+      onPress={props.onPress}
+      style={{
+        backgroundColor: colors.card,
+        shadowOffset: { width: 2, height: 2 },
+        shadowColor: "#333",
+        shadowOpacity: 1,
+      }}
+    >
+      <Image
+        className="self-center"
+        source={require("@/assets/images/favicon.png")}
+      />
+      <Text className="text-xl" style={{ color: colors.text }}>
+        {props.itemName}
+      </Text>
+      <Text className="italic font-semibold" style={{ color: colors.text }}>
+        {props.brandName}
+      </Text>
+      <Text className="font-semibold" style={{ color: colors.text }}>
+        {props.itemCost}
+      </Text>
+    </Pressable>
+  );
 }
-
