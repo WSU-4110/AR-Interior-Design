@@ -1,17 +1,18 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
+import { LightTheme, DarkTheme } from "@/constants/ColorThemes";
 import { initializeApp } from "firebase/app";
-import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+import {
+  initializeAuth,
+  getReactNativePersistence,
+  getAuth,
+} from "firebase/auth";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
 const firebaseConfig = {
@@ -36,8 +37,14 @@ export {
 } from "expo-router";
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
+  initialRouteName: "index",
+};
+
+export const resetRouterAndReRoute = (route: any) => {
+  while (router.canGoBack()) {
+    router.back();
+  }
+  router.replace(route);
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -69,14 +76,44 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const { currentUser } = getAuth();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack initialRouteName="logIn">
-        <Stack.Screen name="logIn" options={{}} />
-        <Stack.Screen name="signUp" options={{}} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : LightTheme}>
+      <Stack initialRouteName={currentUser ? "logIn" : "(tabs)"}>
+        <Stack.Screen
+          name="logIn"
+          options={{
+            headerTitle: "Log In",
+            headerTitleStyle: {
+              color: DarkTheme.colors.text,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="signUp"
+          options={{
+            headerTitle: "Sign Up",
+            headerTitleStyle: {
+              color: DarkTheme.colors.text,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="setting"
+          options={{
+            headerTitle: "App Settings",
+            headerTitleStyle: {
+              color: DarkTheme.colors.text,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="(tabs)"
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );

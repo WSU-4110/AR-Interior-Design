@@ -5,8 +5,8 @@ import { useTheme } from "@react-navigation/native";
 import { signOut, getAuth } from "firebase/auth";
 import { router } from "expo-router";
 
-const signOutAndReroute = () => {
-  signOut(getAuth());
+const signOutAndReroute = async () => {
+  await signOut(getAuth());
   router.replace("/logIn");
 };
 
@@ -15,7 +15,10 @@ export default function ProfileScreen() {
   const { currentUser } = getAuth();
 
   return (
-    <View className="flex-1 items-center justify-center">
+    <View
+      className="flex-1 items-center justify-center"
+      style={{ backgroundColor: colors.background }}
+    >
       <Text className="font-bold text-xl" style={{ color: colors.text }}>
         Profile Screen
       </Text>
@@ -37,23 +40,23 @@ export default function ProfileScreen() {
           className="text-center my-4 justify-center"
           style={{ color: colors.text }}
         >
-          Logged in as Guest
+          Currently browsing as a guest.
         </Text>
       )}
 
       {currentUser ? (
         <Pressable
-          className="bg-slate-500 py-2 px-4"
+          className="bg-primaryColor py-2 px-4 rounded-md"
           onPress={signOutAndReroute}
         >
-          <Text style={{ color: colors.text }}>Sign Out</Text>
+          <Text className="text-white">Sign Out</Text>
         </Pressable>
       ) : (
         <Pressable
-          className="bg-slate-500 py-2 px-4"
-          onPress={() => router.replace("/logIn")}
+          className="bg-primaryColor py-2 px-4 rounded-md"
+          onPress={() => router.navigate("/logIn")}
         >
-          <Text style={{ color: colors.text }}>Log In</Text>
+          <Text className="text-white">Log In</Text>
         </Pressable>
       )}
 
