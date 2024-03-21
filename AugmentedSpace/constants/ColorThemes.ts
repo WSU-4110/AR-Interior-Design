@@ -2,7 +2,7 @@ export const CustomColors = {
   light: '#FAFAFA',
   dark: '#1A1A1A',
   lightCardColor: '#FFFFFF',
-  darkCardColor: '#121212',
+  darkCardColor: '#31363F',
   darkAccentColor: '#686963',
   primaryColor: '#DB5461',
   secondaryColor: '#8AA29E',
@@ -10,6 +10,8 @@ export const CustomColors = {
   hyperlinkColor: '#1E88E5',
   lightTextColor: '#686963',
   iconColor: '#686963',
+  lightShadow: '#333',
+  darkShadow: '#000'
 }
 
 export const LightTheme = {
@@ -21,6 +23,7 @@ export const LightTheme = {
     text: CustomColors.dark,
     border: CustomColors.light,
     notification: CustomColors.iconColor,
+    shadow: CustomColors.lightShadow
   },
 };
 
@@ -33,5 +36,6 @@ export const DarkTheme = {
     text: CustomColors.light,
     border: CustomColors.dark,
     notification: CustomColors.iconColor,
+    shadow: CustomColors.darkShadow
   },
 };
