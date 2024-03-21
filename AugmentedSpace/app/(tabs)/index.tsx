@@ -26,11 +26,6 @@ export default function CatalogScreen() {
   const [products, setProducts] = useState<item[]>([]);
   const firestore = getFirestore();
 
-  var loop = [];
-  for (let i = 1; i <= 1; i++) {
-    loop.push(i);
-  }
-
   //function to fetch items from firestore
   const fetchItems = async () => {
     const q = query(collection(firestore, "FURNITUREITEMS"));
@@ -43,6 +38,9 @@ export default function CatalogScreen() {
         imagePath: doc.data().image,
         price: doc.data().price
       });
+
+      console.log("document data pushed to itemsList for id: " + doc.id);
+
     });
     setProducts(itemsList);
   }
@@ -85,7 +83,10 @@ export default function CatalogScreen() {
               router.push({
                 pathname: "/item-info/[items]",
                 params: {
-                  items: "testItem",
+                  items: item.itemName,
+                  imageSource: item.imagePath,
+                  itemCost: item.price,
+                  brandName: item.brandName
                 },
               })
             }
