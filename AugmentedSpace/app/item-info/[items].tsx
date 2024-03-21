@@ -101,6 +101,7 @@ const ProductScreen = () => {
       </View>
     </ScrollView>
   );
+  );
 };
 
 export default ProductScreen;
