@@ -1,17 +1,37 @@
 import { Image, ImageSourcePropType, Pressable, Text, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { getAuth } from "firebase/auth";
+
 
 type ItemCardProps = {
   itemName: string;
   brandName: string;
   itemCost: number;
-  imagePath: ImageSourcePropType;
+  imagePath: string;
   className?: string;
   onPress?: () => void;
 };
 
 export default function ItemCard(props: ItemCardProps) {
   const { colors } = useTheme();
+  const [imageUrl, setImageUrl] = useState("");
+  const { currentUser } = getAuth();
+
+  useEffect(() => {
+    //retrieve image url from firebase
+    const getImageUrl = async () => {
+      const storage = getStorage();
+      const reference = ref(storage, props.imagePath);
+      await getDownloadURL(reference).then((x) => {
+        setImageUrl(x);
+      })
+    }
+
+    getImageUrl();
+  }, []);
+
   return (
     <Pressable
       className="w-1/2 h-auto flex-1 mx-1 p-2 rounded-2xl"
@@ -25,7 +45,7 @@ export default function ItemCard(props: ItemCardProps) {
     >
       <Image
         className="self-center h-32 w-32 my-2"
-        source={props.imagePath}
+        source={{uri: imageUrl}}
       />
       <View
         className="m-1">

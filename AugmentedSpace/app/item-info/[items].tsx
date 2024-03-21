@@ -19,7 +19,9 @@ const ProductScreen = () => {
     Alert.alert("Rating", `You have given a rating of ${rating} stars.`);
   };
   return (
-    <ScrollView style={infoPageStyle.container}>
+    <ScrollView style={infoPageStyle.container}
+      className="flex-1" >
+
       {/* Product image */}
       <View style={infoPageStyle.imageContainer}>
         <Image
@@ -52,6 +54,7 @@ const ProductScreen = () => {
         <View style={infoPageStyle.priceRow}>
           <TouchableOpacity
             style={infoPageStyle.buyButton}
+            className="flex-1 items-center"
             onPress={() => Alert.alert("Buy button pressed")}
           >
             <Text style={infoPageStyle.buyButtonText}>
@@ -61,6 +64,7 @@ const ProductScreen = () => {
         </View>
         <TouchableOpacity
           style={infoPageStyle.viewInYourRoomButton}
+          className="flex-1 items-center"
           onPress={() => Alert.alert("View in Room button pressed")}
         >
           <Text style={infoPageStyle.buyButtonText}>View In Your Room</Text>
