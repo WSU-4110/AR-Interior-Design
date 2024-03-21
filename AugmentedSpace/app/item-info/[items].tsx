@@ -1,12 +1,7 @@
 import { infoPageStyle } from "@/styles/itemInfoPageStyles";
 import { useLocalSearchParams } from "expo-router";
-<<<<<<< HEAD
 import React, { useState, useCallback } from "react";
 import { Rating } from '@kolking/react-native-rating';
-=======
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import React, { useEffect, useState } from "react";
->>>>>>> main
 import {
   Alert,
   Image,
@@ -44,7 +39,6 @@ const ProductScreen = () => {
         <View style={infoPageStyle.priceRow}>
           <TouchableOpacity
             style={infoPageStyle.buyButton}
-<<<<<<< HEAD
             onPress={() => Alert.alert("Buy button pressed")}
           >
             <Text style={infoPageStyle.buyButtonText}>
@@ -57,22 +51,11 @@ const ProductScreen = () => {
           >
             <Text style={infoPageStyle.buyButtonText}>
               Add to cart
-=======
-            className="flex-1 items-center"
-            onPress={() => Alert.alert("Buy button pressed")}
-          >
-            <Text style={infoPageStyle.buyButtonText}>
-              Buy <Text style={infoPageStyle.priceText}>${itemCost}</Text>
->>>>>>> main
             </Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
           style={infoPageStyle.viewInYourRoomButton}
-<<<<<<< HEAD
-=======
-          className="flex-1 items-center"
->>>>>>> main
           onPress={() => Alert.alert("View in Room button pressed")}
         >
           <Text style={infoPageStyle.buyButtonText}>View In Your Room</Text>
