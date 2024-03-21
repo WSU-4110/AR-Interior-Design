@@ -12,7 +12,7 @@ import {
 import StarRating from "react-native-star-rating";
 const ProductScreen = () => {
   const { items } = useLocalSearchParams();
-  const [starCount, setStarCount] = useState(0);
+  const [starCount, setStarCount] = useState(3.5);
 
   const onStarRatingPress = (rating: number) => {
     setStarCount(rating);
@@ -27,9 +27,6 @@ const ProductScreen = () => {
           style={infoPageStyle.productImage}
           resizeMode="contain"
         />
-        <TouchableOpacity style={infoPageStyle.view360Button}>
-          <Text>360°</Text>
-        </TouchableOpacity>
       </View>
       <View style={infoPageStyle.detailsContainer}>
         <View style={infoPageStyle.starRating}>
@@ -41,6 +38,7 @@ const ProductScreen = () => {
             selectedStar={(rating: number) => onStarRatingPress(rating)}
             fullStarColor={"gold"}
             emptyStarColor={"grey"}
+            halfStarColor={"gold"}
           />
         </View>
         <Text style={infoPageStyle.productDescription}>

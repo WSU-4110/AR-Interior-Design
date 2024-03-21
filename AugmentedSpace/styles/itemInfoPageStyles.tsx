@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native"
 import Colors from '@/constants/Colors'
+import { LightTheme, DarkTheme } from "@/constants/ColorThemes";
 export const infoPageStyle = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: LightTheme.colors.background,
     },
     imageContainer: {
         justifyContent: 'center',
@@ -14,59 +15,49 @@ export const infoPageStyle = StyleSheet.create({
         width: 250,
         height: 280,
     },
-    view360Button: {
-        position: 'absolute',
-        bottom: 10,
-        right: 10,
-        backgroundColor: '#f8f8f8',
-        padding: 8,
-        borderRadius: 20,
-        elevation: 3,
-        shadowColor: '#000',
-        shadowOffset: { width: 1, height: 1 },
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
-    },
     detailsContainer: {
         paddingHorizontal: 20,
         paddingTop: 10,
+        backgroundColor: LightTheme.colors.background,
     },
     productName: {
         fontWeight: 'bold',
         fontSize: 22,
-        color: '#333',
+        color: LightTheme.colors.text,
         marginBottom: 5,
     },
     productDescription: {
         fontSize: 16,
-        color: '#666',
+        color: LightTheme.colors.text,
         lineHeight: 24,
         marginBottom: 20,
     },
     priceRow: {
-        flexDirection: 'row',
+        flexDirection: 'column-reverse',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 20,
     },
     buyButton: {
-        backgroundColor: 'lightblue',
+        backgroundColor: LightTheme.colors.primary,
         paddingVertical: 20,
         paddingHorizontal: 40,
         borderRadius: 20,
+        alignItems: 'center',
     },
     buyButtonText: {
-        color: 'black',
+        color: LightTheme.colors.text,
         fontSize: 30,
         fontWeight: 'bold',
     },
     priceText: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: '#333',
+        color: LightTheme.colors.text,
     },
     viewInYourRoomButton: {
-        backgroundColor: 'lightblue',
+        alignItems: 'center',
+        backgroundColor: LightTheme.colors.primary,
         paddingVertical: 20,
         paddingHorizontal: 40,
         borderRadius: 20,
@@ -77,7 +68,5 @@ export const infoPageStyle = StyleSheet.create({
         justifyContent:'space-between',
         alignItems: 'center',
         marginBottom: 20,
-        color: '#666',
-        
     }
 });
