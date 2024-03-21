@@ -8,7 +8,7 @@ interface FurnitureStore {
   id: string;
   city: string;
 }
-
+/**Kassem was here testing */
 export default function AR_View() {
   const { colors } = useTheme();
   const [furnitureStores, setFurnitureStores] = useState<FurnitureStore[]>([]);
