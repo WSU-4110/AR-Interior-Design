@@ -45,9 +45,14 @@ const ProductScreen = () => {
               Buy <Text style={infoPageStyle.priceText}>{price}</Text>
             </Text>
           </TouchableOpacity>
-          <View style={infoPageStyle.root}>
-            <Rating size={27} rating={rating} onChange={handleChange} baseColor="grey" fillColor="red"/>
-          </View>
+          <TouchableOpacity
+          style = {infoPageStyle.buyButton}
+          onPress={() => Alert.alert("You have added this item to cart")}
+          >
+            <Text style={infoPageStyle.buyButtonText}>
+              Add to cart
+            </Text>
+          </TouchableOpacity>
         </View>
         <TouchableOpacity
           style={infoPageStyle.viewInYourRoomButton}

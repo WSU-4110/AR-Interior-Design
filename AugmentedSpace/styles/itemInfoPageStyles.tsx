@@ -36,11 +36,12 @@ export const infoPageStyle = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 20,
+    paddingVertical: 20,
   },
   buyButton: {
     backgroundColor: LightTheme.colors.primary,
     paddingVertical: 20,
-    paddingHorizontal: 40,
+    paddingHorizontal: 20,
     borderRadius: 20,
     alignItems: "center",
   },
