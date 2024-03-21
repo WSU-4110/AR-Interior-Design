@@ -11,6 +11,8 @@ import { router } from "expo-router";
 import { getAuth } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
 import ItemCard from "@/components/ItemCard";
+import ItemCardProps from "@/components/ItemCard";
+import itemCost from "@/components/ItemCard"
 
 export default function CatalogScreen() {
   const { colors } = useTheme();
@@ -55,6 +57,7 @@ export default function CatalogScreen() {
                 pathname: "/item-info/[items]",
                 params: {
                   items: item,
+                  price: 24.99,
                 },
               })
             }
