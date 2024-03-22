@@ -42,23 +42,32 @@ export default function AR_View() {
 
   return (
     <View style={styles.container}>
+      {/* Container for store list */}
       <FlatList
         data={furnitureStores}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item}>
             <View style={styles.rowContainer}>
-          <Text style={styles.idText}>{item.id}</Text>
-          <Text style={styles.cityText}>{item.city}</Text>
-        </View>
+              <Text style={styles.idText}>{item.id}</Text>
+              <Text style={styles.cityText}>{item.city}</Text>
+            </View>
             <TouchableOpacity onPress={navigateToStore} style={styles.button}>
               <Text style={styles.buttonText}>Go to Store</Text>
             </TouchableOpacity>
-          </TouchableOpacity>
+          </TouchableOpacity>   
         )}
       />
+      
+      {/* Container tab for adding a new store */}
+      <View style={styles.addTabContainer}>
+        <TouchableOpacity style={styles.addTabButton}>
+          <Text style={styles.buttonText}>Add Store</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
+  
 }
 
 const styles = StyleSheet.create({
@@ -99,6 +108,16 @@ const styles = StyleSheet.create({
     color: 'white', // White button text color
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  addTabContainer: {
+    backgroundColor: '#007BFF',
+    padding: 10,
+    alignItems: 'center',
+  },
+  addTabButton: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 5,
   },
 });
 
