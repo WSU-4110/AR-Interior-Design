@@ -35,7 +35,6 @@ export const infoPageStyle = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 20,
     paddingVertical: 20,
   },
   buyButton: {
