@@ -2,7 +2,11 @@ import { Text, View } from "@/components/Themed";
 import { Pressable, TextInput } from "react-native";
 import React, { useState } from "react";
 import { useTheme } from "@react-navigation/native";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { router } from "expo-router";
 import { resetRouterAndReRoute } from "./_layout";
 import { ShowPopup } from "@/components/popup";
@@ -25,6 +29,13 @@ export default function SignUpScreen() {
     } else {
       ShowPopup("Passwords do not match");
     }
+  };
+
+  const handleContinueAsGuest = async () => {
+    if (getAuth().currentUser) {
+      await signOut(getAuth());
+    }
+    resetRouterAndReRoute("/(tabs)");
   };
 
   return (
@@ -130,7 +141,7 @@ export default function SignUpScreen() {
             </Text>
           </Pressable>
         </View>
-        <Pressable onPress={() => resetRouterAndReRoute("/(tabs)")}>
+        <Pressable onPress={handleContinueAsGuest}>
           <Text className="py-6" style={{ color: colors.text }}>
             Continue as Guest
           </Text>
