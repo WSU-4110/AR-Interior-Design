@@ -2,8 +2,9 @@ import { StatusBar } from "expo-status-bar";
 import { Platform, Pressable } from "react-native";
 import { Text, View } from "@/components/Themed";
 import { useTheme } from "@react-navigation/native";
-import { signOut, getAuth } from "firebase/auth";
+import { signOut, getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { router } from "expo-router";
+import { useEffect, useState } from "react";
 
 const signOutAndReroute = async () => {
   await signOut(getAuth());
@@ -12,7 +13,15 @@ const signOutAndReroute = async () => {
 
 export default function ProfileScreen() {
   const { colors } = useTheme();
-  const { currentUser } = getAuth();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <View
