@@ -1,6 +1,6 @@
 import { useTheme } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native"
+import { Pressable, View } from "react-native"
 import {MaterialCommunityIcons} from "@expo/vector-icons"
 
 type FavButtonProps = {
@@ -36,8 +36,3 @@ export default function FavButton(props: FavButtonProps) {
         </View>
     )
 }
-
-
-const styles = StyleSheet.create({
-
-})
