@@ -1,6 +1,6 @@
 import { Text, View } from "@/components/Themed";
 import { Pressable, TextInput } from "react-native";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
 import { router } from "expo-router";
 import { useState, useEffect } from "react";
@@ -19,6 +19,13 @@ export default function LogInScreen() {
 
   const navigateToSignUp = () => {
     router.navigate("/signUp");
+  };
+
+  const handleContinueAsGuest = async () => {
+    if (getAuth().currentUser) {
+      await signOut(getAuth());
+    }
+    resetRouterAndReRoute("/(tabs)");
   };
 
   const handleLogin = () => {
@@ -104,7 +111,7 @@ export default function LogInScreen() {
 
         <Pressable
           className="flex-1 justify-end"
-          onPress={() => resetRouterAndReRoute("/(tabs)")}
+          onPress={handleContinueAsGuest}
         >
           <Text style={{ color: colors.text }}>Continue as Guest</Text>
         </Pressable>
