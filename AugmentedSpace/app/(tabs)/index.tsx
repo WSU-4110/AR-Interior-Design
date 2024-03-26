@@ -70,7 +70,7 @@ export default function CatalogScreen() {
       </TextInput>
 
       <FlatList
-        className="flex flex-1 h-full w-full pt-1"
+        className="flex flex-1 h-full w-full pt-1 pr-0.5"
         contentContainerStyle={{
           gap: 20,
           justifyContent: "space-around",

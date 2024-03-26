@@ -29,7 +29,7 @@ export default function FavButton(props: FavButtonProps) {
             >
                 <MaterialCommunityIcons
                     name={liked ? "heart" : "heart-outline"}
-                    size={32}
+                    size={30}
                     color={liked ? "red" : "gray"}
                     />
             </Pressable>
