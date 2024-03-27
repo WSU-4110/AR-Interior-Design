@@ -10,8 +10,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import StarRating from "react-native-star-rating";
-
 
 const ProductScreen = () => {
   //get params from index.tsx
@@ -20,7 +18,6 @@ const ProductScreen = () => {
   const { itemCost } = useLocalSearchParams();
   const { brandName } = useLocalSearchParams();
 
-  const [starCount, setStarCount] = useState(0);
   const [imageUrl, setImageUrl] = useState("");
 
   //log params
@@ -28,11 +25,6 @@ const ProductScreen = () => {
   console.log("imageSource: " + imageSource);
   console.log("itemCost: " + itemCost);
   console.log("brandName: " + brandName);
-
-  const onStarRatingPress = (rating: number) => {
-    setStarCount(rating);
-    Alert.alert("Rating", `You have given a rating of ${rating} stars.`);
-  };
 
   useEffect(() => {
     //retrieve image url from firebase
@@ -48,9 +40,7 @@ const ProductScreen = () => {
   }, []);
   
   return (
-    <ScrollView style={infoPageStyle.container}
-      className="flex-1" >
-
+    <ScrollView style={infoPageStyle.container}>
       {/* Product image */}
       <View style={infoPageStyle.imageContainer}>
         <Image
@@ -58,22 +48,9 @@ const ProductScreen = () => {
           style={infoPageStyle.productImage}
           resizeMode="contain"
         />
-        <TouchableOpacity style={infoPageStyle.view360Button}>
-          <Text>360°</Text>
-        </TouchableOpacity>
       </View>
       <View style={infoPageStyle.detailsContainer}>
-        <View style={infoPageStyle.starRating}>
-          <Text style={infoPageStyle.productName}>{items}</Text>
-          <StarRating
-            disabled={false}
-            maxStars={5}
-            rating={starCount}
-            selectedStar={(rating: number) => onStarRatingPress(rating)}
-            fullStarColor={"gold"}
-            emptyStarColor={"grey"}
-          />
-        </View>
+        <Text style={infoPageStyle.productName}>{items}</Text>
         <Text style={infoPageStyle.productDescription}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam,
           dolorum quo. Nesciunt vero similique, soluta neque dolorum voluptas at
@@ -83,17 +60,23 @@ const ProductScreen = () => {
         <View style={infoPageStyle.priceRow}>
           <TouchableOpacity
             style={infoPageStyle.buyButton}
-            className="flex-1 items-center"
             onPress={() => Alert.alert("Buy button pressed")}
           >
             <Text style={infoPageStyle.buyButtonText}>
-              Buy <Text style={infoPageStyle.priceText}>${itemCost}</Text>
+              Buy <Text style={infoPageStyle.priceText}>{itemCost}</Text>
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+          style = {infoPageStyle.buyButton}
+          onPress={() => Alert.alert("You have added this item to cart")}
+          >
+            <Text style={infoPageStyle.buyButtonText}>
+              Add to cart
             </Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
           style={infoPageStyle.viewInYourRoomButton}
-          className="flex-1 items-center"
           onPress={() => Alert.alert("View in Room button pressed")}
         >
           <Text style={infoPageStyle.buyButtonText}>View In Your Room</Text>
