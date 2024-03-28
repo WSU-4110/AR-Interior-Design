@@ -90,7 +90,7 @@ export default function ItemCard(props: ItemCardProps) {
           <Text
             className="text-l font-semibold"
             style={{
-              color: colors.black
+              color: "#000"
             }}>
             Add to Cart
           </Text>
