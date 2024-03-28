@@ -1,11 +1,18 @@
 import { Text, View } from "@/components/Themed";
 import { FlatList, TextInput } from "react-native";
 import { router } from "expo-router";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
 import ItemCard from "@/components/ItemCard";
 import { useEffect, useState } from "react";
-import { getFirestore, collection, getDocs, query } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  query,
+} from "firebase/firestore";
 
 interface item {
   UUID: string;
@@ -17,8 +24,9 @@ interface item {
 
 export default function Favorites() {
   const { colors } = useTheme();
-  const { currentUser } = getAuth();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [products, setProducts] = useState<item[]>([]);
+  const [favorites, setFavorites] = useState<string[]>([]);
   const firestore = getFirestore();
 
   //function to fetch items from firestore
@@ -38,6 +46,31 @@ export default function Favorites() {
       console.log("document data pushed to itemsList for id: " + doc.id);
     });
     setProducts(itemsList);
+  };
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      if (user) {
+        fetchFavorites(user);
+      }
+    });
+    return () => unsubscribe();
+  }, [favorites]);
+
+  const fetchFavorites = async (user: User) => {
+    const db = getFirestore(); // Get Firestore reference
+    const userRef = doc(db, "users", user.uid);
+    try {
+      const docSnap = await getDoc(userRef);
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        setFavorites(userData?.favorites || []);
+      }
+    } catch (error) {
+      console.error("Error fetching favorites:", error);
+    }
   };
 
   //fetch furniture items on component mount
