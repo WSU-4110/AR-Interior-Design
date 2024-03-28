@@ -31,7 +31,11 @@ export default function LogInScreen() {
   const handleLogin = () => {
     signInWithEmailAndPassword(getAuth(), email, password)
       .then((user) => {
-        if (user) resetRouterAndReRoute("/(tabs)");
+        if (user) {
+          console.log("User logged in successfully");
+          console.log("User ID: ", user.user.uid);
+          resetRouterAndReRoute("/(tabs)");
+        }
       })
       .catch((err) => {
         ShowPopup(err?.message);
