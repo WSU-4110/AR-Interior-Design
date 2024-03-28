@@ -105,14 +105,14 @@ const ProductScreen = () => {
               Buy <Text style={infoPageStyle.priceText}>{itemCost}</Text>
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
           style = {infoPageStyle.buyButton}
           onPress={() => Alert.alert("You have added this item to cart")}
           >
             <Text style={infoPageStyle.buyButtonText}>
               Add to cart
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <TouchableOpacity
           style={infoPageStyle.viewInYourRoomButton}
