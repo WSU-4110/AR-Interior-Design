@@ -14,7 +14,7 @@ import {
   query,
 } from "firebase/firestore";
 
-interface item {
+interface Item {
   UUID: string;
   itemName: string;
   brandName: string;
@@ -25,15 +25,15 @@ interface item {
 export default function Favorites() {
   const { colors } = useTheme();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [products, setProducts] = useState<item[]>([]);
+  const [products, setProducts] = useState<Item[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const firestore = getFirestore();
 
-  //function to fetch items from firestore
+  // Function to fetch items from firestore
   const fetchItems = async () => {
     const q = query(collection(firestore, "FURNITUREITEMS"));
     const querySnapshot = await getDocs(q);
-    const itemsList: item[] = [];
+    const itemsList: Item[] = [];
     querySnapshot.forEach((doc) => {
       itemsList.push({
         UUID: doc.id,
@@ -42,8 +42,6 @@ export default function Favorites() {
         imagePath: doc.data().image,
         price: doc.data().price,
       });
-
-      console.log("document data pushed to itemsList for id: " + doc.id);
     });
     setProducts(itemsList);
   };
@@ -73,15 +71,20 @@ export default function Favorites() {
     }
   };
 
-  //fetch furniture items on component mount
+  // Fetch furniture items on component mount
   useEffect(() => {
     fetchItems();
   }, []);
 
   return (
     <View
-      className="flex-1 items-center justify-center my-4"
-      style={{ backgroundColor: colors.background }}
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 4,
+        backgroundColor: colors.background,
+      }}
     >
       <TextInput
         className="flex w-full h-10 bg-slate-300 rounded-xl align-middle content-center p-2 justify-center m-1"
@@ -93,27 +96,22 @@ export default function Favorites() {
           shadowOpacity: 1,
         }}
         placeholder="Search for items"
-      >
-        <Text style={{ color: colors.text }}>Test Input</Text>
-      </TextInput>
+      ></TextInput>
 
-      <Text className="font-bold text-xl mt-2" style={{ color: colors.text }}>
+      <Text className="font-bold text-xl mt-4" style={{ color: colors.text }}>
         Your Favorites
       </Text>
       <View
-        className="mb-4 mt-2 h-1 w-4/5"
+        className="my-2 h-1 w-4/5"
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
 
       <FlatList
-        className="flex flex-1 h-full w-full pt-1 pr-0.5"
-        contentContainerStyle={{
-          gap: 20,
-          justifyContent: "space-around",
-        }}
-        data={products}
-        numColumns={1}
+        style={{ flex: 1, width: "100%", padding: 5 }}
+        contentContainerStyle={{ justifyContent: "space-around" }}
+        data={products.filter((item) => favorites.includes(item.UUID))}
+        keyExtractor={(item) => item.UUID}
         renderItem={({ item }) => (
           <ItemCard
             onPress={() =>
@@ -134,7 +132,7 @@ export default function Favorites() {
             itemCost={item.price}
           />
         )}
-      ></FlatList>
+      />
     </View>
   );
 }

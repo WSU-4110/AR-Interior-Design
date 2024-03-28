@@ -61,7 +61,7 @@ export default function CatalogScreen() {
         }}
         placeholder="Search for items"
       >
-        <Text style={{ color: colors.text }}>Test Input</Text>
+        {/* <Text style={{ color: colors.text }}>Test Input</Text> */}
       </TextInput>
 
       <FlatList
