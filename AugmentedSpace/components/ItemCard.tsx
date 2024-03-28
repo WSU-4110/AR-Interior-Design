@@ -3,6 +3,7 @@ import { useTheme } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { getAuth } from "firebase/auth";
+import FavButton from "@/components/favButton";
 
 
 type ItemCardProps = {
@@ -33,32 +34,47 @@ export default function ItemCard(props: ItemCardProps) {
   }, []);
 
   return (
-    <Pressable
-      className="w-1/2 h-auto flex-1 mx-1 p-2 rounded-2xl"
-      onPress={props.onPress}
-      style={{
-        backgroundColor: colors.card,
-        shadowOffset: { width: 2, height: 2 },
-        shadowColor: colors.shadow,
-        shadowOpacity: 1,
-      }}
-    >
-      <Image
-        className="self-center h-32 w-32 my-2"
-        source={{uri: imageUrl}}
-      />
+    <View
+      className="flex-1">
       <View
-        className="m-1">
-        <Text className="text-xl" style={{ color: colors.text }}>
-          {props.itemName}
-        </Text>
-        <Text className="italic font-semibold" style={{ color: colors.text }}>
-          {props.brandName}
-        </Text>
-        <Text className="font-semibold" style={{ color: colors.text }}>
-          {props.itemCost}
-        </Text>
+        className="w-auto h-auto flex-1 mx-3 mt-3 p-2 rounded-2xl align-top"
+        style={{
+          backgroundColor: colors.card,
+          shadowOffset: { width: 2, height: 2 },
+          shadowColor: colors.shadow,
+          shadowOpacity: 1,
+        }}
+      >
+        <Pressable
+          onPress={props.onPress}
+        >
+          <View>
+            <Image
+              className="self-center h-32 w-32 my-2"
+              source={{uri: imageUrl}}
+            />
+          </View>
+          <View
+            className="m-1">
+            <Text className="text-xl" style={{ color: colors.text }}>
+              {props.itemName}
+            </Text>
+            <Text className="italic font-semibold" style={{ color: colors.text }}>
+              {props.brandName}
+            </Text>
+            <Text className="font-semibold" style={{ color: colors.text }}>
+              {props.itemCost}
+            </Text>
+          </View>
+
+        </Pressable>
       </View>
-    </Pressable>
+      <View
+        className="absolute grid self-end w-10 h-10"
+        >
+        <FavButton/>
+      </View>
+    </View>
+    
   );
 }
