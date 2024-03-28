@@ -111,7 +111,8 @@ function RootLayoutNav() {
         <Stack.Screen
           name="(tabs)"
           options={{
-            headerShown: false,
+            headerTitle: "Tabs",
+            headerShown: true,
           }}
         />
       </Stack>

@@ -14,7 +14,7 @@ export default function FavButton(props: FavButtonProps) {
 
     return (
         <View
-            className=" flex-auto rounded-full items-center p-1 self-end"
+            className=" flex-auto rounded-full items-center p-2 self-end"
             style={{
                 backgroundColor: colors.card,
                 position: "absolute",
@@ -25,11 +25,12 @@ export default function FavButton(props: FavButtonProps) {
             }}
             >
             <Pressable
+                className="flex-1"
                 onPress={ () => setLiked(!liked) }
             >
                 <MaterialCommunityIcons
                     name={liked ? "heart" : "heart-outline"}
-                    size={30}
+                    size={24}
                     color={liked ? "red" : "gray"}
                     />
             </Pressable>
