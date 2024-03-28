@@ -22,7 +22,7 @@ interface item {
 
 export default function CatalogScreen() {
   const { colors } = useTheme();
-  const { currentUser } = getAuth();  
+  const { currentUser } = getAuth();
   const [products, setProducts] = useState<item[]>([]);
   const firestore = getFirestore();
 
@@ -81,7 +81,7 @@ export default function CatalogScreen() {
           <ItemCard
             onPress={() =>
               router.push({
-                pathname: "/item-info/[items]",
+                pathname: "/item-info/[items]" ,
                 params: {
                   items: item.itemName,
                   imageSource: item.imagePath,

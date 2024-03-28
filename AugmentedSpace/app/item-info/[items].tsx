@@ -1,7 +1,10 @@
 import { infoPageStyle } from "@/styles/itemInfoPageStyles";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import React, { useEffect, useState } from "react";
+import { getFirestore, doc, setDoc, collection } from 'firebase/firestore';
+import { getAuth } from "firebase/auth";
+
 import {
   Alert,
   Image,
@@ -10,29 +13,50 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import StarRating from "react-native-star-rating";
-
 
 const ProductScreen = () => {
+
+  const firestore = getFirestore();
+  const auth = getAuth();
+  const user = auth.currentUser;
   //get params from index.tsx
   const { items } = useLocalSearchParams();
   const { imageSource } = useLocalSearchParams();
   const { itemCost } = useLocalSearchParams();
   const { brandName } = useLocalSearchParams();
+  const { itemName } = useLocalSearchParams();
 
-  const [starCount, setStarCount] = useState(0);
   const [imageUrl, setImageUrl] = useState("");
 
+  const addToCart = async () => {
+    if (user) {
+      try {
+        const cartItem = {
+          itemName: items,
+          brandName: brandName,
+          itemCost: itemCost,
+          imagePath: imageSource,
+          quantity: 1,
+        };
+        // Adding the item to the user's cart collection
+        const cartRef = collection(firestore, `users/${user.uid}/cart`);
+        await setDoc(doc(cartRef), cartItem);
+        Alert.alert("Success", "Item added to cart");
+      } catch (error) {
+        console.error("Error adding item to cart: ", error);
+        Alert.alert("Error", "There was an error adding the item to the cart");
+      }
+    } else {
+      Alert.alert("Sign In Required", "Please sign in to add items to your cart");
+    }
+  };
   //log params
   console.log("items: " + items);
   console.log("imageSource: " + imageSource);
   console.log("itemCost: " + itemCost);
   console.log("brandName: " + brandName);
-
-  const onStarRatingPress = (rating: number) => {
-    setStarCount(rating);
-    Alert.alert("Rating", `You have given a rating of ${rating} stars.`);
-  };
+  console.log("itemName: " + itemName);
+  console.log("itemQuantity: " + 1);
 
   useEffect(() => {
     //retrieve image url from firebase
@@ -60,16 +84,13 @@ const ProductScreen = () => {
         />
       </View>
       <View style={infoPageStyle.detailsContainer}>
-        <View style={infoPageStyle.starRating}>
-          <Text style={infoPageStyle.productName}>{items}</Text>
-          <StarRating
-            disabled={false}
-            maxStars={5}
-            rating={starCount}
-            selectedStar={(rating: number) => onStarRatingPress(rating)}
-            fullStarColor={"gold"}
-            emptyStarColor={"grey"}
-          />
+        <View style={infoPageStyle.firstRow}>
+          <Text style={infoPageStyle.productName}>
+        {brandName + "'s"+ ' ' + items }
+        </Text>
+        <TouchableOpacity style={infoPageStyle.addToCartButton} onPress={addToCart} >
+            <Text style={infoPageStyle.addToCartButtonText} >Add to Cart</Text>
+        </TouchableOpacity>
         </View>
         <Text style={infoPageStyle.productDescription}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam,
