@@ -13,8 +13,13 @@ export default function LogInScreen() {
   const { colors } = useTheme();
 
   useEffect(() => {
-    const { currentUser } = getAuth();
-    if (currentUser) resetRouterAndReRoute("/(tabs)");
+    const unsubscribe = getAuth().onAuthStateChanged((user) => {
+      if (user) {
+        resetRouterAndReRoute("/(tabs)");
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const navigateToSignUp = () => {

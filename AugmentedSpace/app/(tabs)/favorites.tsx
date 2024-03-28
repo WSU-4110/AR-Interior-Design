@@ -15,7 +15,7 @@ interface item {
   price: number;
 }
 
-export default function CatalogScreen() {
+export default function Favorites() {
   const { colors } = useTheme();
   const { currentUser } = getAuth();
   const [products, setProducts] = useState<item[]>([]);
@@ -50,6 +50,29 @@ export default function CatalogScreen() {
       className="flex-1 items-center justify-center my-4"
       style={{ backgroundColor: colors.background }}
     >
+      <TextInput
+        className="flex w-full h-10 bg-slate-300 rounded-xl align-middle content-center p-2 justify-center m-1"
+        style={{
+          color: colors.text,
+          backgroundColor: colors.card,
+          shadowOffset: { width: 2, height: 2 },
+          shadowColor: colors.shadow,
+          shadowOpacity: 1,
+        }}
+        placeholder="Search for items"
+      >
+        <Text style={{ color: colors.text }}>Test Input</Text>
+      </TextInput>
+
+      <Text className="font-bold text-xl mt-2" style={{ color: colors.text }}>
+        Your Favorites
+      </Text>
+      <View
+        className="mb-4 mt-2 h-1 w-4/5"
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
+      />
+
       <FlatList
         className="flex flex-1 h-full w-full pt-1 pr-0.5"
         contentContainerStyle={{
@@ -57,7 +80,7 @@ export default function CatalogScreen() {
           justifyContent: "space-around",
         }}
         data={products}
-        numColumns={2}
+        numColumns={1}
         renderItem={({ item }) => (
           <ItemCard
             onPress={() =>
