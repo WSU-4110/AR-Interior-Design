@@ -11,6 +11,7 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import FavButton from "@/components/favButton";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { router } from "expo-router";
 
 type ItemCardProps = {
   UUID: string;
@@ -81,7 +82,11 @@ export default function ItemCard(props: ItemCardProps) {
               className="align-middle text-center justify-center items-center"
               style={{ color: colors.text }}
             >
-              <FontAwesome name="codepen" size={16} />
+              <FontAwesome
+                name="codepen"
+                size={16}
+                onPress={() => router.push("/ar_view")}
+              />
             </Text>
           </Pressable>
           <Pressable className="bg-blue-500 flex-grow py-2">
@@ -89,7 +94,11 @@ export default function ItemCard(props: ItemCardProps) {
               className="align-middle text-center justify-center items-center"
               style={{ color: colors.text }}
             >
-              <FontAwesome name="shopping-cart" size={16} />
+              <FontAwesome
+                name="shopping-cart"
+                size={16}
+                onPress={() => router.push("/cart")}
+              />
             </Text>
           </Pressable>
         </View>
