@@ -5,16 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { ShowPopup } from "./popup";
 import { router } from "expo-router";
-import {
-  getFirestore,
-  collection,
-  doc,
-  getDoc,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-} from "firebase/firestore";
-import { getStorage, ref, uploadString } from "firebase/storage";
+import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 
 type FavButtonProps = {
   onPress?: () => void;
