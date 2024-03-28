@@ -45,6 +45,7 @@ export const infoPageStyle = StyleSheet.create({
     paddingVertical: 20,
   },
   buyButton: {
+    flex: 1,
     backgroundColor: LightTheme.colors.primary,
     paddingVertical: 20,
     paddingHorizontal: 20,
