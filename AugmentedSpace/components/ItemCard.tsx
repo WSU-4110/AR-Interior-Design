@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import FavButton from "@/components/favButton";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 type ItemCardProps = {
   UUID: string;
@@ -75,11 +76,21 @@ export default function ItemCard(props: ItemCardProps) {
 
         {/* Quick Action Buttons */}
         <View className="flex w-full flex-row">
-          <Pressable className="bg-red-500 flex-grow">
-            <Text style={{ color: colors.text }}>AR</Text>
+          <Pressable className="bg-red-500 flex-grow py-2">
+            <Text
+              className="align-middle text-center justify-center items-center"
+              style={{ color: colors.text }}
+            >
+              <FontAwesome name="codepen" size={16} />
+            </Text>
           </Pressable>
-          <Pressable className="bg-blue-500 flex-grow">
-            <Text style={{ color: colors.text }}>CART</Text>
+          <Pressable className="bg-blue-500 flex-grow py-2">
+            <Text
+              className="align-middle text-center justify-center items-center"
+              style={{ color: colors.text }}
+            >
+              <FontAwesome name="shopping-cart" size={16} />
+            </Text>
           </Pressable>
         </View>
       </View>

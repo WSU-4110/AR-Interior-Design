@@ -47,6 +47,7 @@ export default function Favorites() {
   };
 
   useEffect(() => {
+    fetchItems();
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
@@ -55,7 +56,7 @@ export default function Favorites() {
       }
     });
     return () => unsubscribe();
-  }, [favorites]);
+  }, []);
 
   const fetchFavorites = async (user: User) => {
     const db = getFirestore(); // Get Firestore reference
@@ -70,11 +71,6 @@ export default function Favorites() {
       console.error("Error fetching favorites:", error);
     }
   };
-
-  // Fetch furniture items on component mount
-  useEffect(() => {
-    fetchItems();
-  }, []);
 
   return (
     <View
