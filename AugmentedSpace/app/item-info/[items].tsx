@@ -72,9 +72,7 @@ const ProductScreen = () => {
   }, []);
   
   return (
-    <ScrollView style={infoPageStyle.container}
-      className="flex-1" >
-
+    <ScrollView style={infoPageStyle.container}>
       {/* Product image */}
       <View style={infoPageStyle.imageContainer}>
         <Image
@@ -101,17 +99,23 @@ const ProductScreen = () => {
         <View style={infoPageStyle.priceRow}>
           <TouchableOpacity
             style={infoPageStyle.buyButton}
-            className="flex-1 items-center"
             onPress={() => Alert.alert("Buy button pressed")}
           >
             <Text style={infoPageStyle.buyButtonText}>
-              Buy <Text style={infoPageStyle.priceText}>${itemCost}</Text>
+              Buy <Text style={infoPageStyle.priceText}>{itemCost}</Text>
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+          style = {infoPageStyle.buyButton}
+          onPress={() => Alert.alert("You have added this item to cart")}
+          >
+            <Text style={infoPageStyle.buyButtonText}>
+              Add to cart
             </Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
           style={infoPageStyle.viewInYourRoomButton}
-          className="flex-1 items-center"
           onPress={() => Alert.alert("View in Room button pressed")}
         >
           <Text style={infoPageStyle.buyButtonText}>View In Your Room</Text>
