@@ -76,7 +76,7 @@ export default function CatalogScreen() {
           <ItemCard
             onPress={() =>
               router.push({
-                pathname: "/item-info/[items]",
+                pathname: "/item-info/[items]" ,
                 params: {
                   items: item.itemName,
                   imageSource: item.imagePath,
