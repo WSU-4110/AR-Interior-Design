@@ -34,10 +34,11 @@ export default function FavButton(props: FavButtonProps) {
       setCurrentUser(user);
       if (user) {
         fetchFavorites(user);
+        setLiked(favorites.includes(props.itemUUID));
       }
     });
     return () => unsubscribe();
-  }, []);
+  }, [favorites, props.itemUUID]);
 
   const fetchFavorites = async (user: User) => {
     const db = getFirestore(); // Get Firestore reference
@@ -46,7 +47,7 @@ export default function FavButton(props: FavButtonProps) {
       const docSnap = await getDoc(userRef);
       if (docSnap.exists()) {
         const userData = docSnap.data();
-        setFavorites(userData?.favorites || []); // Update favorites state
+        setFavorites(userData?.favorites || []);
       }
     } catch (error) {
       console.error("Error fetching favorites:", error);
@@ -71,12 +72,15 @@ export default function FavButton(props: FavButtonProps) {
       ShowPopup("Please log in to favorite items");
       router.push("/logIn");
     } else {
-      setLiked(!liked);
-      const updatedFavorites = liked
-        ? favorites.filter((fav) => fav !== props.itemUUID)
-        : [...favorites, props.itemUUID];
+      // Update liked state with functional form of setLiked
+      setLiked((prevLiked) => !prevLiked);
 
-      // Update Firestore document with new favorites
+      let updatedFavorites: string[];
+      if (!liked) {
+        updatedFavorites = [...favorites, props.itemUUID]; // Add itemUUID
+      } else {
+        updatedFavorites = favorites.filter((fav) => fav !== props.itemUUID); // Remove itemUUID
+      }
       updateFavoritesInFirestore(updatedFavorites);
     }
   }
