@@ -5,15 +5,10 @@ import { getAuth } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
 import ItemCard from "@/components/ItemCard";
 import { useEffect, useState } from "react";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  query,
-} from "firebase/firestore";
-
+import { getFirestore, collection, getDocs, query } from "firebase/firestore";
 
 interface item {
+  UUID: string;
   itemName: string;
   brandName: string;
   imagePath: string;
@@ -33,22 +28,22 @@ export default function CatalogScreen() {
     const itemsList: item[] = [];
     querySnapshot.forEach((doc) => {
       itemsList.push({
+        UUID: doc.id,
         itemName: doc.data().name,
         brandName: doc.data().brand,
         imagePath: doc.data().image,
-        price: doc.data().price
+        price: doc.data().price,
       });
 
       console.log("document data pushed to itemsList for id: " + doc.id);
-
     });
     setProducts(itemsList);
-  }
+  };
 
   //fetch furniture items on component mount
   useEffect(() => {
     fetchItems();
-  }, [])
+  }, []);
 
   return (
     <View
@@ -62,11 +57,11 @@ export default function CatalogScreen() {
           backgroundColor: colors.card,
           shadowOffset: { width: 2, height: 2 },
           shadowColor: colors.shadow,
-          shadowOpacity:1
+          shadowOpacity: 1,
         }}
         placeholder="Search for items"
       >
-        <Text style={{ color: colors.text }}>Test Input</Text>
+        {/* <Text style={{ color: colors.text }}>Test Input</Text> */}
       </TextInput>
 
       <FlatList
@@ -86,18 +81,18 @@ export default function CatalogScreen() {
                   items: item.itemName,
                   imageSource: item.imagePath,
                   itemCost: item.price,
-                  brandName: item.brandName
+                  brandName: item.brandName,
                 },
               })
             }
+            UUID={item.UUID}
             itemName={item.itemName}
             brandName={item.brandName}
             imagePath={item.imagePath}
             itemCost={item.price}
           />
         )}
-      >
-    </FlatList>
+      ></FlatList>
     </View>
   );
 }
