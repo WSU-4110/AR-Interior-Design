@@ -27,7 +27,7 @@ const Unity = () => {
     }
   }, []);
 
-  return (
+  /* return (
     <View style={{ flex: 1 }}>
       <UnityView
         ref={unityRef}
@@ -38,7 +38,7 @@ const Unity = () => {
         }}
       />
     </View>
-  );
+  ); */
 };
 
 export default Unity;
