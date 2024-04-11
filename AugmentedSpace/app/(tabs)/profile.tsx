@@ -1,10 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import { Platform, Pressable } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StatusBar, Platform, Pressable } from "react-native";
 import { Text, View } from "@/components/Themed";
 import { useTheme } from "@react-navigation/native";
 import { signOut, getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
 
 const signOutAndReroute = async () => {
   await signOut(getAuth());
@@ -25,52 +24,48 @@ export default function ProfileScreen() {
 
   return (
     <View
-      className="flex-1 items-center justify-center"
-      style={{ backgroundColor: colors.background }}
+      style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: colors.background }}
     >
-      <Text className="font-bold text-xl" style={{ color: colors.text }}>
+      <Text style={{ fontSize: 24, fontWeight: "bold", color: colors.text }}>
         Profile Screen
       </Text>
       <View
-        className="my-8 h-1 w-4/5"
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
+        style={{
+          marginVertical: 16,
+          height: 1,
+          width: "80%",
+          backgroundColor: colors.border,
+        }}
       />
 
       {currentUser ? (
-        <Text
-          className="text-center my-4 justify-center"
-          style={{ color: colors.text }}
-        >
+        <Text style={{ fontSize: 18, color: colors.text }}>
           Logged in as {currentUser?.email}
         </Text>
       ) : (
-        <Text
-          className="text-center my-4 justify-center"
-          style={{ color: colors.text }}
-        >
+        <Text style={{ fontSize: 18, color: colors.text }}>
           Currently browsing as a guest.
         </Text>
       )}
 
-      {currentUser ? (
-        <Pressable
-          className="bg-primaryColor py-2 px-4 rounded-md"
-          onPress={signOutAndReroute}
-        >
-          <Text className="text-white">Sign Out</Text>
-        </Pressable>
-      ) : (
-        <Pressable
-          className="bg-primaryColor py-2 px-4 rounded-md"
-          onPress={() => router.navigate("/logIn")}
-        >
-          <Text className="text-white">Log In</Text>
-        </Pressable>
-      )}
+      <Pressable
+        style={{
+          backgroundColor: colors.primary,
+          paddingHorizontal: 16,
+          paddingVertical: 8,
+          borderRadius: 8,
+          marginTop: 16,
+        }}
+        onPress={currentUser ? signOutAndReroute : () => router.navigate("/logIn")}
+      >
+        <Text style={{ fontSize: 16, color: "white" }}>
+          {currentUser ? "Sign Out" : "Log In"}
+        </Text>
+      </Pressable>
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
     </View>
   );
 }
+

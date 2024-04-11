@@ -1,44 +1,22 @@
-import React, { useRef, useEffect } from "react";
-
-import UnityView from "@azesmway/react-native-unity";
+import React from "react";
 import { View } from "react-native";
+import { Camera } from "expo-camera";
 
-interface IMessage {
-  gameObject: string;
-  methodName: string;
-  message: string;
-}
-
-const Unity = () => {
-  const unityRef = useRef<UnityView>(null);
-
-  useEffect(() => {
-    if (unityRef?.current) {
-      const message: IMessage = {
-        gameObject: "gameObject",
-        methodName: "methodName",
-        message: "message",
-      };
-      unityRef.current.postMessage(
-        message.gameObject,
-        message.methodName,
-        message.message
-      );
-    }
-  }, []);
-
+const UnityWithExpoCamera = () => {
   return (
     <View style={{ flex: 1 }}>
-      <UnityView
-        ref={unityRef}
-        // style={{ flex: 1 }}
-
-        onUnityMessage={(result) => {
-          console.log("onUnityMessage", result.nativeEvent.message);
-        }}
+      <Camera
+        style={{ flex: 1 }}
+        type={"back"} // Specify 'back' as a string here
+        autoFocus={Camera.Constants.AutoFocus.on}
+        flashMode={Camera.Constants.FlashMode.off}
       />
     </View>
   );
 };
 
-export default Unity;
+export default UnityWithExpoCamera;
+
+
+export default UnityWithExpoCamera;
+
