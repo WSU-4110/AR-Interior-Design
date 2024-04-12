@@ -4,24 +4,19 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class PrefabLoadTest
+public class NewTestScript
 {
-    public GameObject prefab1;
-    public GameObject prefab1origin;
-    public GameObject prefab2;
     // A Test behaves as an ordinary method
     [Test]
-    public void setPrefabType()
+    public void NewTestScriptSimplePasses()
     {
-        Assert.AreSame(prefab1, prefab1origin);
-       // prefab1origin = new GameObject().getComponent<SpawnOnPlane>().placePrefab;
-        //Assert.AreSame(prefab1, prefab1origin);
+        // Use the Assert class to test conditions
     }
 
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
     // `yield return null;` to skip a frame.
     [UnityTest]
-    public IEnumerator PrefabLoadTestWithEnumeratorPasses()
+    public IEnumerator NewTestScriptWithEnumeratorPasses()
     {
         // Use the Assert class to test conditions.
         // Use yield to skip a frame.

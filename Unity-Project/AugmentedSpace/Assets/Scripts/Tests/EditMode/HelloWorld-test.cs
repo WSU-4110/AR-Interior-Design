@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class HelloWorld-test
+public class HelloWorld-Test
 {
     // A Test behaves as an ordinary method
     [Test]
