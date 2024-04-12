@@ -15,7 +15,7 @@ public class SpawnOnPlane : MonoBehaviour
     private int spawnCount = 0; // current count of spawned objects
 
     [SerializeField]
-    private GameObject placePrefab;
+    public GameObject placePrefab;
 
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
 

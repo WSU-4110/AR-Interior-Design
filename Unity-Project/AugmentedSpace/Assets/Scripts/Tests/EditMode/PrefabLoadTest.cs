@@ -6,11 +6,15 @@ using UnityEngine.TestTools;
 
 public class PrefabLoadTest
 {
+    public GameObject prefab1;
+    public GameObject prefab1origin;
+    public GameObject prefab2;
     // A Test behaves as an ordinary method
     [Test]
-    public void TestonTouch()
+    public void TestButtons()
     {
-        
+        prefab1origin = new GameObject().getComponent<SpawnOnPlane>().placePrefab;
+        Assert.AreSame(prefab1, prefab1origin);
     }
 
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
