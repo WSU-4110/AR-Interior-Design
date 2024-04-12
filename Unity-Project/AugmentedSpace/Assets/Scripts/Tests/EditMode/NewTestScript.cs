@@ -11,6 +11,7 @@ public class NewTestScript
     public void NewTestScriptSimplePasses()
     {
         // Use the Assert class to test conditions
+        Assert.AreSame(new SpawnOnPlane().placePrefab, NewTestScriptWithEnumeratorPasses());
     }
 
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use

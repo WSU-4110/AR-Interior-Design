@@ -73,6 +73,7 @@ public class SpawnOnPlane : MonoBehaviour
     public void setPrefabType(GameObject prefab)
     {
         placePrefab = prefab;
+        
     }
 
     private void spawnPrefab(Pose hitPose) //to get rid of repeated code
