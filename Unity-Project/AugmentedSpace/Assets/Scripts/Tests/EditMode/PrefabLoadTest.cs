@@ -7,8 +7,9 @@ using UnityEngine.TestTools;
 public class PrefabLoadTest
 {
     public GameObject prefab1;
-    public GameObject prefab1origin;
+    public GameObject prefab1origin = GameObject.Find("3Seat3 Variant");
     public GameObject prefab2;
+    public GameObject prefab2origin;
     // A Test behaves as an ordinary method
     [Test]
     public void setPrefabType()
