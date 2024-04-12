@@ -2,10 +2,16 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react-native";
 import LogInScreen from "../logIn";
 import { ShowPopup } from "@/components/popup";
-// Mock firebase/auth module
+import { resetRouterAndReRoute } from "../_layout";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+
 jest.mock("firebase/auth", () => ({
-  getAuth: jest.fn(),
-  signInWithEmailAndPassword: jest.fn(),
+  getAuth: jest.fn(() => ({
+    onAuthStateChanged: jest.fn(),
+  })),
+  signInWithEmailAndPassword: jest
+    .fn()
+    .mockResolvedValueOnce({ user: { uid: "testUserId" } }),
   signOut: jest.fn(),
 }));
 
@@ -15,6 +21,24 @@ jest.mock("../_layout", () => ({
 }));
 jest.mock("@/components/popup", () => ({
   ShowPopup: jest.fn(),
+}));
+
+// Mock the handleContinueAsGuest function
+const handleContinueAsGuestMock = jest.fn();
+
+jest.mock("../logIn", () => ({
+  __esModule: true,
+  default: () => ({
+    handleContinueAsGuest: handleContinueAsGuestMock,
+  }),
+}));
+
+// Mock router module
+import { router } from "expo-router";
+jest.mock("expo-router", () => ({
+  router: {
+    navigate: jest.fn(),
+  },
 }));
 
 describe("LogInScreen", () => {
@@ -35,13 +59,19 @@ describe("LogInScreen", () => {
     const { getByText } = render(<LogInScreen />);
     const signUpButton = getByText("Sign Up");
     fireEvent.press(signUpButton);
-    // Implement navigation assertion
+    // Assert navigation
+    expect(router.navigate).toHaveBeenCalledWith("/signUp");
   });
 
   it("calls handleContinueAsGuest function on pressing Continue as Guest button", () => {
     const { getByText } = render(<LogInScreen />);
     const continueAsGuestButton = getByText("Continue as Guest");
     fireEvent.press(continueAsGuestButton);
+
+    // Expect handleContinueAsGuest to be called
+    expect(handleContinueAsGuestMock).toHaveBeenCalledTimes(1);
+
+    // Optionally, you can also check other expectations within handleContinueAsGuest
     expect(signOut).toHaveBeenCalledTimes(1);
     expect(resetRouterAndReRoute).toHaveBeenCalledWith("/(tabs)");
   });
@@ -66,7 +96,8 @@ describe("LogInScreen", () => {
   });
 
   it("shows error message on login failure", async () => {
-    signInWithEmailAndPassword.mockRejectedValueOnce({
+    // Cast signInWithEmailAndPassword to jest.Mock and use mockRejectedValueOnce
+    (signInWithEmailAndPassword as jest.Mock).mockRejectedValueOnce({
       message: "Login failed",
     });
 

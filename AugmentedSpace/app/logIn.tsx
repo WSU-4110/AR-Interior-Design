@@ -19,7 +19,7 @@ export default function LogInScreen() {
       }
     });
 
-    return () => unsubscribe();
+    return unsubscribe; // Call unsubscribe directly
   }, []);
 
   const navigateToSignUp = () => {
@@ -35,12 +35,12 @@ export default function LogInScreen() {
 
   const handleLogin = () => {
     signInWithEmailAndPassword(getAuth(), email, password)
-      .then((user) => {
-        if (user) {
-          console.log("User logged in successfully");
-          console.log("User ID: ", user.user.uid);
-          resetRouterAndReRoute("/(tabs)");
-        }
+      .then((userCredential) => {
+        // Change `user` to `userCredential`
+        const user = userCredential.user; // Extract user from userCredential
+        console.log("User logged in successfully");
+        console.log("User ID: ", user.uid);
+        resetRouterAndReRoute("/(tabs)");
       })
       .catch((err) => {
         ShowPopup(err?.message);
