@@ -16,7 +16,7 @@ public class PrefabLoadTest
     {
         Assert.AreSame(prefab1, prefab1origin);
        // prefab1origin = new GameObject().getComponent<SpawnOnPlane>().placePrefab;
-        Assert.AreSame(prefab1, new SpawnOnPlane().placePrefab);
+        Assert.AreSame(GameObject.Find("3Seat3 Variant"), new SpawnOnPlane().placePrefab);
     }
 
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
