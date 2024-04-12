@@ -51,7 +51,8 @@ export default function ItemCard(props: ItemCardProps) {
           shadowOpacity: 1,
         }}
       >
-        <Pressable onPress={props.onPress}>
+        <Pressable onPress={props.onPress}
+          testID="card-button">
           <View>
             <Image
               className="self-center h-32 w-32 my-2"
@@ -90,7 +91,8 @@ export default function ItemCard(props: ItemCardProps) {
               />
             </Text>
           </Pressable>
-          <Pressable className="bg-blue-500 flex-grow py-2">
+          <Pressable className="bg-blue-500 flex-grow py-2"
+            testID="cart-button">
             <Text
               className="align-middle text-center justify-center items-center"
               style={{ color: colors.text }}

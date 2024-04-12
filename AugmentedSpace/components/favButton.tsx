@@ -92,7 +92,8 @@ export default function FavButton(props: FavButtonProps) {
         shadowOpacity: 1,
       }}
     >
-      <Pressable onPress={handleFavoriteItem}>
+      <Pressable onPress={handleFavoriteItem}
+        testID="fav-button">
         <MaterialCommunityIcons
           name={liked ? "heart" : "heart-outline"}
           size={30}
