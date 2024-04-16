@@ -8,11 +8,21 @@ import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 jest.mock("firebase/auth", () => ({
   getAuth: jest.fn(() => ({
     onAuthStateChanged: jest.fn(),
+    currentUser: null, // Mocking currentUser as null for this test
   })),
   signInWithEmailAndPassword: jest
     .fn()
     .mockResolvedValueOnce({ user: { uid: "testUserId" } }),
   signOut: jest.fn(),
+}));
+
+// Mock the handleContinueAsGuest function
+const handleContinueAsGuestMock = jest.fn();
+jest.mock("../logIn", () => ({
+  __esModule: true,
+  default: () => ({
+    handleContinueAsGuest: handleContinueAsGuestMock,
+  }),
 }));
 
 // Mock resetRouterAndReRoute and ShowPopup functions
@@ -21,16 +31,6 @@ jest.mock("../_layout", () => ({
 }));
 jest.mock("@/components/popup", () => ({
   ShowPopup: jest.fn(),
-}));
-
-// Mock the handleContinueAsGuest function
-const handleContinueAsGuestMock = jest.fn();
-
-jest.mock("../logIn", () => ({
-  __esModule: true,
-  default: () => ({
-    handleContinueAsGuest: handleContinueAsGuestMock,
-  }),
 }));
 
 // Mock router module
@@ -70,8 +70,6 @@ describe("LogInScreen", () => {
 
     // Expect handleContinueAsGuest to be called
     expect(handleContinueAsGuestMock).toHaveBeenCalledTimes(1);
-
-    // Optionally, you can also check other expectations within handleContinueAsGuest
     expect(signOut).toHaveBeenCalledTimes(1);
     expect(resetRouterAndReRoute).toHaveBeenCalledWith("/(tabs)");
   });
