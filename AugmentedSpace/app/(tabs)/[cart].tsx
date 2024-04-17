@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Alert, Pressable, Dimensions } from 'react-native';
+import { FlatList, Alert, Pressable, Dimensions, StyleSheet } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import CartCard from '@/components/CartCard';
 import { View, Text } from "@/components/Themed";
 
-const screenWidth = Dimensions.get('window').width;  // Get the width of the screen
+const screenWidth = Dimensions.get('window').width;
 
 type CartItemType = {
   id: string;
@@ -60,6 +60,7 @@ const CartScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <Text style={styles.header}>Your Cart</Text>
       <FlatList
         data={cartItems}
         numColumns={2}
@@ -70,39 +71,46 @@ const CartScreen = () => {
             itemCost={item.itemCost}
             imagePath={item.imagePath}
             onRemove={() => handleRemoveItemFromCart(item.id)}
-            width={screenWidth / 2 - 10}  // Adjust width here
+            width={screenWidth / 2 - 10}
           />
         )}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{
-          paddingHorizontal: 5,
-          paddingBottom: 5
-        }}
+        contentContainerStyle={styles.listContainer}
       />
       <Pressable
-        style={{
-          backgroundColor: colors.primary,
-          paddingVertical: 20,
-          paddingHorizontal: 20,
-          borderRadius: 20,
-          alignItems: "center",
-          marginBottom: 5,
-          marginHorizontal: 5,
-          shadowOffset: { width: 2, height: 2 },
-          shadowColor: colors.shadow,
-          shadowOpacity: 1,
-        }}
+        style={[styles.checkoutButton, { backgroundColor: colors.primary }]}
         onPress={() => Alert.alert("Checkout feature not implemented")}
       >
-        <Text style={{ fontSize: 20, fontWeight: "bold", color: colors.text }}>
-          Checkout
-        </Text>
-        <Text style={{ fontSize: 15, fontWeight: "bold", color: colors.text }}>
-          Total: ${totalPrice.toFixed(2)}
-        </Text>
+        <Text style={styles.checkoutText}>Checkout - ${totalPrice.toFixed(2)}</Text>
       </Pressable>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    padding: 20,
+    textAlign: 'center',
+  },
+  listContainer: {
+    paddingHorizontal: 5,
+    paddingBottom: 5
+  },
+  checkoutButton: {
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    alignItems: "center",
+    margin: 10,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.5,
+  },
+  checkoutText: {
+    fontSize: 20,
+    fontWeight: "bold",
+  }
+});
 
 export default CartScreen;

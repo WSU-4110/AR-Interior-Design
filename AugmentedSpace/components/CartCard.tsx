@@ -1,4 +1,4 @@
-import { Image, Pressable } from "react-native";
+import { Image, Pressable, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
@@ -11,7 +11,7 @@ type CartCardProps = {
   itemCost: number;
   imagePath: string;
   onRemove: () => void;
-  width: number;  // Add width prop
+  width: number;
 };
 
 export default function CartCard(props: CartCardProps) {
@@ -29,30 +29,51 @@ export default function CartCard(props: CartCardProps) {
 
   return (
     <Pressable
-      style={{
-        backgroundColor: colors.card,
-        shadowOffset: { width: 2, height: 2 },
-        shadowColor: colors.shadow,
-        shadowOpacity: 1,
-        padding: 10,
-        borderRadius: 10,
-        margin: 5,
-        width: props.width,  // Set dynamic width based on screen size
-      }}
+      style={[styles.card, { backgroundColor: colors.card, width: props.width }]}
       onPress={() => console.log("Item pressed")}
     >
       <Image
-        style={{ height: 100, width: 100, alignSelf: "center" }}
+        style={styles.image}
         source={{ uri: imageUrl }}
       />
-      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-        <Text style={{ color: colors.text, fontSize: 16 }}>{props.brandName}</Text>
-        <Text style={{ color: colors.text, fontSize: 16 }}>{props.itemName}</Text>
-        <Text style={{ color: colors.text, fontSize: 16 }}>${props.itemCost}</Text>
+      <View style={styles.infoContainer}>
+        <Text style={[styles.text, { color: colors.text }]}>{props.brandName}</Text>
+        <Text style={[styles.text, { color: colors.text, fontSize: 16 }]}>{props.itemName}</Text>
+        <Text style={[styles.text, { color: colors.text, fontSize: 16 }]}>${props.itemCost}</Text>
       </View>
-      <Pressable onPress={props.onRemove} style={{ padding: 10, alignItems: 'center' }}>
-        <Text style={{ color: colors.text, fontWeight: 'bold' }}>Remove</Text>
+      <Pressable onPress={props.onRemove} style={styles.removeButton}>
+        <Text style={[styles.removeText, { color: colors.text }]}>Remove</Text>
       </Pressable>
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  card: {
+    padding: 10,
+    borderRadius: 10,
+    margin: 5,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 1,
+  },
+  image: {
+    height: 100,
+    width: 100,
+    alignSelf: "center"
+  },
+  infoContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  text: {
+    fontWeight: 'bold'
+  },
+  removeButton: {
+    padding: 10,
+    alignItems: 'center'
+  },
+  removeText: {
+    fontWeight: 'bold'
+  }
+});
