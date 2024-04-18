@@ -176,6 +176,7 @@ export default function Favorites() {
         contentContainerStyle={{ justifyContent: "space-around" }}
         data={products.filter((item) => favorites.includes(item.UUID))}
         keyExtractor={(item) => item.UUID}
+        extraData={favorites}
         renderItem={({ item }) => (
           <ItemCard
             onPress={() =>
