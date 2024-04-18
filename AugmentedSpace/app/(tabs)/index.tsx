@@ -1,19 +1,14 @@
+import React, { useState, useEffect } from 'react';
 import { Text, View } from "@/components/Themed";
 import { FlatList, TextInput } from "react-native";
 import { router } from "expo-router";
 import { getAuth } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
 import ItemCard from "@/components/ItemCard";
-import { useEffect, useState } from "react";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  query,
-} from "firebase/firestore";
+import { getFirestore, collection, getDocs, query } from "firebase/firestore";
 
-
-interface item {
+interface Item {
+  UUID: string;
   itemName: string;
   brandName: string;
   imagePath: string;
@@ -22,33 +17,45 @@ interface item {
 
 export default function CatalogScreen() {
   const { colors } = useTheme();
-  const { currentUser } = getAuth();  
-  const [products, setProducts] = useState<item[]>([]);
+  const { currentUser } = getAuth();
+  const [products, setProducts] = useState<Item[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const firestore = getFirestore();
 
-  //function to fetch items from firestore
+  // Fetch items from firestore
   const fetchItems = async () => {
     const q = query(collection(firestore, "FURNITUREITEMS"));
     const querySnapshot = await getDocs(q);
-    const itemsList: item[] = [];
+    const itemsList: Item[] = [];
     querySnapshot.forEach((doc) => {
       itemsList.push({
+        UUID: doc.id,
         itemName: doc.data().name,
         brandName: doc.data().brand,
         imagePath: doc.data().image,
-        price: doc.data().price
+        price: doc.data().price,
       });
-
-      console.log("document data pushed to itemsList for id: " + doc.id);
-
     });
     setProducts(itemsList);
-  }
+  };
 
-  //fetch furniture items on component mount
+  // Fetch furniture items on component mount
   useEffect(() => {
     fetchItems();
-  }, [])
+  }, []);
+
+  // Filtered products based on search query
+  const filteredProducts = products.filter(item =>
+    item.itemName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.brandName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.price.toString().includes(searchQuery.toLowerCase())
+  );
+  
+
+  // Function to handle changes in the search bar text
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
+  };
 
   return (
     <View
@@ -57,39 +64,40 @@ export default function CatalogScreen() {
     >
       <TextInput
         className="flex w-full h-10 bg-slate-300 rounded-xl align-middle content-center p-2 justify-center m-1"
-        style={{ 
-          color: colors.text, 
+        style={{
+          color: colors.text,
           backgroundColor: colors.card,
           shadowOffset: { width: 2, height: 2 },
           shadowColor: colors.shadow,
-          shadowOpacity:1
+          shadowOpacity: 1,
         }}
         placeholder="Search for items"
-      >
-        <Text style={{ color: colors.text }}>Test Input</Text>
-      </TextInput>
+        onChangeText={handleSearch} // Call handleSearch when text changes
+        value={searchQuery} // Value of the search bar
+      />
 
       <FlatList
-        className="flex flex-1 h-full w-full p-2"
+        className="flex flex-1 h-full w-full pt-1 pr-0.5"
         contentContainerStyle={{
-          gap: 10,
+          gap: 20,
           justifyContent: "space-around",
         }}
-        data={products}
+        data={filteredProducts} // Use filtered products
         numColumns={2}
         renderItem={({ item }) => (
           <ItemCard
             onPress={() =>
               router.push({
-                pathname: "/item-info/[items]",
+                pathname: "/item-info/[items]" ,
                 params: {
                   items: item.itemName,
                   imageSource: item.imagePath,
                   itemCost: item.price,
-                  brandName: item.brandName
+                  brandName: item.brandName,
                 },
               })
             }
+            UUID={item.UUID}
             itemName={item.itemName}
             brandName={item.brandName}
             imagePath={item.imagePath}
