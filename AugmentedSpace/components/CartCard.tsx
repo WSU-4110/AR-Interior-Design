@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { View, Text } from "@/components/Themed";
+import { router } from "expo-router";
 
 type CartCardProps = {
+  
   itemName: string;
   brandName: string;
   itemCost: number;
@@ -30,7 +32,15 @@ export default function CartCard(props: CartCardProps) {
   return (
     <Pressable
       style={[styles.card, { backgroundColor: colors.card, width: props.width }]}
-      onPress={() => console.log("Item pressed")}
+      onPress={() => router.push({
+        pathname: "/item-info/[items]" ,
+        params: {
+          items: props.itemName,
+          imageSource: props.imagePath,
+          itemCost: props.itemCost,
+          brandName: props.brandName
+        },
+      })}
     >
       <Image
         style={styles.image}
