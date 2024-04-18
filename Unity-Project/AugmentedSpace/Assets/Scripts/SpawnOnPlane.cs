@@ -67,8 +67,8 @@ public class SpawnOnPlane : MonoBehaviour
                     spawnPrefab(hitPose);
                 }
 
-                spawnObject.transform.position = hitPose.position;
-                spawnObject.transform.rotation = hitPose.rotation;
+                //spawnObject.transform.position = hitPose.position;
+                //spawnObject.transform.rotation = hitPose.rotation;
             } 
         }
     }
