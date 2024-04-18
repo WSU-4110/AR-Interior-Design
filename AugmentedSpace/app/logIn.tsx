@@ -13,8 +13,13 @@ export default function LogInScreen() {
   const { colors } = useTheme();
 
   useEffect(() => {
-    const { currentUser } = getAuth();
-    if (currentUser) resetRouterAndReRoute("/(tabs)");
+    const unsubscribe = getAuth().onAuthStateChanged((user) => {
+      if (user) {
+        resetRouterAndReRoute("/(tabs)");
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const navigateToSignUp = () => {
@@ -31,7 +36,11 @@ export default function LogInScreen() {
   const handleLogin = () => {
     signInWithEmailAndPassword(getAuth(), email, password)
       .then((user) => {
-        if (user) resetRouterAndReRoute("/(tabs)");
+        if (user) {
+          console.log("User logged in successfully");
+          console.log("User ID: ", user.user.uid);
+          resetRouterAndReRoute("/(tabs)");
+        }
       })
       .catch((err) => {
         ShowPopup(err?.message);

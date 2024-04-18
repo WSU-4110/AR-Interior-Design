@@ -10,6 +10,13 @@ import {
 import { router } from "expo-router";
 import { resetRouterAndReRoute } from "./_layout";
 import { ShowPopup } from "@/components/popup";
+import { getFirestore, collection, doc, setDoc } from "firebase/firestore";
+
+interface UserProfile {
+  email: string;
+  favorites: string[];
+  cart: string[];
+}
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState("");
@@ -19,15 +26,34 @@ export default function SignUpScreen() {
 
   const handleRegister = () => {
     if (password === passwordValidation) {
-      createUserWithEmailAndPassword(getAuth(), email, password)
-        .then((user) => {
-          if (user) resetRouterAndReRoute("/(tabs)");
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // User creation successful
+          const user = userCredential.user;
+          saveUserInfo(user.uid, email);
+          resetRouterAndReRoute("/(tabs)");
         })
         .catch((err) => {
           alert(err?.message);
         });
     } else {
       ShowPopup("Passwords do not match");
+    }
+  };
+
+  const saveUserInfo = async (userId: string, email: string) => {
+    const db = getFirestore(); // Get Firestore reference
+    const userDocRef = doc(db, "users", userId); // Reference the user document using the UID
+    try {
+      await setDoc(userDocRef, {
+        email: email,
+        favorites: [],
+        cart: [],
+      });
+      console.log("User info saved successfully with UID: ", userId);
+    } catch (error) {
+      console.error("Error saving user info:", error);
     }
   };
 
