@@ -89,7 +89,7 @@ export default function ItemCard(props: ItemCardProps) {
               />
             </Text>
           </Pressable>
-          <Pressable className="bg-blue-500 flex-grow py-2">
+          {/* <Pressable className="bg-blue-500 flex-grow py-2">
             <Text
               className="align-middle text-center justify-center items-center"
               style={{ color: colors.text }}
@@ -100,7 +100,7 @@ export default function ItemCard(props: ItemCardProps) {
                 onPress={() => router.push("/cart")}
               />
             </Text>
-          </Pressable>
+          </Pressable> */}
         </View>
       </View>
 
