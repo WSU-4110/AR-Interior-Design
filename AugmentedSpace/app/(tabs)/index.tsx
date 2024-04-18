@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Text, View } from "@/components/Themed";
-import { FlatList, TextInput } from "react-native";
+import { FlatList, TextInput, ActivityIndicator } from "react-native";
 import { router } from "expo-router";
 import { getAuth } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
@@ -19,7 +19,8 @@ export default function CatalogScreen() {
   const { colors } = useTheme();
   const { currentUser } = getAuth();
   const [products, setProducts] = useState<Item[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
   const firestore = getFirestore();
 
   // Fetch items from firestore
@@ -37,6 +38,7 @@ export default function CatalogScreen() {
       });
     });
     setProducts(itemsList);
+    setLoading(false);
   };
 
   // Fetch furniture items on component mount
@@ -45,17 +47,25 @@ export default function CatalogScreen() {
   }, []);
 
   // Filtered products based on search query
-  const filteredProducts = products.filter(item =>
-    item.itemName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.brandName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.price.toString().includes(searchQuery.toLowerCase())
+  const filteredProducts = products.filter(
+    (item) =>
+      item.itemName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.brandName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.price.toString().includes(searchQuery.toLowerCase())
   );
-  
 
   // Function to handle changes in the search bar text
   const handleSearch = (text: string) => {
     setSearchQuery(text);
   };
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <View
@@ -88,7 +98,7 @@ export default function CatalogScreen() {
           <ItemCard
             onPress={() =>
               router.push({
-                pathname: "/item-info/[items]" ,
+                pathname: "/item-info/[items]",
                 params: {
                   items: item.itemName,
                   imageSource: item.imagePath,
