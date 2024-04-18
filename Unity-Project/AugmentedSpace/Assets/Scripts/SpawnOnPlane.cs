@@ -13,6 +13,7 @@ public class SpawnOnPlane : MonoBehaviour
     private List<GameObject> spawnedObjs = new List<GameObject>(); //keeps a list of objects
     private int maxSpawnCount = 5; //a max of how many objexts can be spawned at once
     private int spawnCount = 0; // current count of spawned objects
+    private Camera arCam;
 
     [SerializeField]
     private GameObject placePrefab;
@@ -23,6 +24,7 @@ public class SpawnOnPlane : MonoBehaviour
     void Awake()
     {
         m_RaycastManager = GetComponent<ARRaycastManager>();
+        arCam = GameObject.Find("AR Camera").GetComponent<Camera>();
     }
 
     bool tryGetTouchPos(out Vector2 pos)
@@ -64,9 +66,10 @@ public class SpawnOnPlane : MonoBehaviour
                 {
                     spawnPrefab(hitPose);
                 }
+
                 //spawnObject.transform.position = hitPose.position;
                 //spawnObject.transform.rotation = hitPose.rotation;
-            }
+            } 
         }
     }
 
