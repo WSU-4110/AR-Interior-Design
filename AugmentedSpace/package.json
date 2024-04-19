@@ -10,7 +10,10 @@
     "test": "jest --watchAll"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|firebase/.*)"
+    ]
   },
   "dependencies": {
     "@expo/ngrok": "^4.1.0",
@@ -21,6 +24,7 @@
     "@react-native-firebase/firestore": "^19.0.1",
     "@react-native-firebase/storage": "^19.0.1",
     "@react-navigation/native": "^6.0.2",
+    "@testing-library/react-native": "^12.4.5",
     "expo": "~50.0.6",
     "expo-constants": "~15.4.5",
     "expo-font": "~11.10.2",
