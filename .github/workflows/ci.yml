@@ -22,7 +22,7 @@ jobs:
           node-version: '20'
           
       - name: Navigate to directory
-        run: cd AR-Interior-Design/AR-Interior-Design/AugmentedSpace
+        run: cd AugmentedSpace
 
       - name: Install dependencies
         run: npm install
