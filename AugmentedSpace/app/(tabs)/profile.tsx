@@ -6,7 +6,7 @@ import { signOut, getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 
-const signOutAndReroute = async () => {
+export const signOutAndReroute = async () => {
   await signOut(getAuth());
   router.replace("/logIn");
 };
