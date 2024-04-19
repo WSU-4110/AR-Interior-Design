@@ -20,6 +20,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '20'
+          
+      - name: Navigate to directory
+        run: cd AR-Interior-Design/AR-Interior-Design/AugmentedSpace
 
       - name: Install dependencies
         run: npm install
