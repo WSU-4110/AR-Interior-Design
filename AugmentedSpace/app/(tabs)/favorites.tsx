@@ -1,6 +1,6 @@
-import { Text, View } from "@/components/Themed";
+import { Text, View, ActivityIndicator } from "react-native";
 import { FlatList, TextInput } from "react-native";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
 import ItemCard from "@/components/ItemCard";
@@ -12,7 +12,9 @@ import {
   getDoc,
   doc,
   query,
+  onSnapshot,
 } from "firebase/firestore";
+import { useCallback } from "react";
 
 interface Item {
   UUID: string;
@@ -27,7 +29,23 @@ export default function Favorites() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [products, setProducts] = useState<Item[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const firestore = getFirestore();
+
+  useFocusEffect(
+    useCallback(() => {
+      setLoading(true);
+      fetchItems();
+      const auth = getAuth();
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        setCurrentUser(user);
+        if (user) {
+          fetchFavorites(user);
+        }
+      });
+      return () => unsubscribe();
+    }, [])
+  );
 
   // Function to fetch items from firestore
   const fetchItems = async () => {
@@ -44,6 +62,7 @@ export default function Favorites() {
       });
     });
     setProducts(itemsList);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -59,18 +78,67 @@ export default function Favorites() {
   }, []);
 
   const fetchFavorites = async (user: User) => {
-    const db = getFirestore(); // Get Firestore reference
+    const db = getFirestore();
     const userRef = doc(db, "users", user.uid);
     try {
       const docSnap = await getDoc(userRef);
       if (docSnap.exists()) {
         const userData = docSnap.data();
         setFavorites(userData?.favorites || []);
+
+        // Subscribe to changes in favorites
+        const unsubscribeFavorites = onSnapshot(userRef, (docSnapshot) => {
+          const updatedUserData = docSnapshot.data();
+          setFavorites(updatedUserData?.favorites || []);
+        });
+
+        // Clean up the subscription
+        return () => unsubscribeFavorites();
       }
     } catch (error) {
       console.error("Error fetching favorites:", error);
     }
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      const db = getFirestore();
+      const userRef = doc(db, "users", currentUser.uid);
+
+      // Subscribe to changes in favorites
+      const unsubscribeFavorites = onSnapshot(userRef, (docSnapshot) => {
+        const userData = docSnapshot.data();
+        setFavorites(userData?.favorites || []);
+      });
+
+      // Clean up the subscription
+      return () => unsubscribeFavorites();
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const db = getFirestore();
+        const userRef = doc(db, "users", user.uid);
+        const unsubscribeFavorites = onSnapshot(userRef, (docSnapshot) => {
+          const userData = docSnapshot.data();
+          setFavorites(userData?.favorites || []);
+        });
+        return () => unsubscribeFavorites();
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <View
@@ -108,6 +176,7 @@ export default function Favorites() {
         contentContainerStyle={{ justifyContent: "space-around" }}
         data={products.filter((item) => favorites.includes(item.UUID))}
         keyExtractor={(item) => item.UUID}
+        extraData={favorites}
         renderItem={({ item }) => (
           <ItemCard
             onPress={() =>
