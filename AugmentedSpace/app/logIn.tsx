@@ -7,6 +7,20 @@ import { useState, useEffect } from "react";
 import { resetRouterAndReRoute } from "./_layout";
 import { ShowPopup } from "@/components/popup";
 
+export function handleLogin(email: string, password: string) {
+  return signInWithEmailAndPassword(getAuth(), email, password)
+    .then((userCredential) => {
+      // Change `user` to `userCredential`
+      const user = userCredential.user; // Extract user from userCredential
+      console.log("User logged in successfully");
+      console.log("User ID: ", user.uid);
+      resetRouterAndReRoute("/(tabs)");
+    })
+    .catch((err) => {
+      ShowPopup(err?.message);
+    });
+}
+
 export default function LogInScreen() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -19,7 +33,7 @@ export default function LogInScreen() {
       }
     });
 
-    return () => unsubscribe();
+    return unsubscribe; // Call unsubscribe directly
   }, []);
 
   const navigateToSignUp = () => {
@@ -31,20 +45,6 @@ export default function LogInScreen() {
       await signOut(getAuth());
     }
     resetRouterAndReRoute("/(tabs)");
-  };
-
-  const handleLogin = () => {
-    signInWithEmailAndPassword(getAuth(), email, password)
-      .then((user) => {
-        if (user) {
-          console.log("User logged in successfully");
-          console.log("User ID: ", user.user.uid);
-          resetRouterAndReRoute("/(tabs)");
-        }
-      })
-      .catch((err) => {
-        ShowPopup(err?.message);
-      });
   };
 
   return (
@@ -105,7 +105,7 @@ export default function LogInScreen() {
       >
         <Pressable
           className="h-10 w-full bg-primaryColor mix-blend-difference rounded-lg text-center items-center justify-center font-semibold"
-          onPress={handleLogin}
+          onPress={() => handleLogin(email, password)}
         >
           <Text className="text-white">Login</Text>
         </Pressable>
