@@ -1,13 +1,14 @@
+import React, { useState, useEffect } from "react";
 import { Text, View } from "@/components/Themed";
-import { FlatList, TextInput } from "react-native";
-import { router } from "expo-router";
+import { FlatList, TextInput, ActivityIndicator } from "react-native";
+import { useCallback } from "react";
+import { router, useFocusEffect } from "expo-router";
 import { getAuth } from "firebase/auth";
 import { useTheme } from "@react-navigation/native";
 import ItemCard from "@/components/ItemCard";
-import { useEffect, useState } from "react";
 import { getFirestore, collection, getDocs, query } from "firebase/firestore";
 
-interface item {
+interface Item {
   UUID: string;
   itemName: string;
   brandName: string;
@@ -18,14 +19,16 @@ interface item {
 export default function CatalogScreen() {
   const { colors } = useTheme();
   const { currentUser } = getAuth();
-  const [products, setProducts] = useState<item[]>([]);
+  const [products, setProducts] = useState<Item[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
   const firestore = getFirestore();
 
-  //function to fetch items from firestore
+  // Fetch items from firestore
   const fetchItems = async () => {
     const q = query(collection(firestore, "FURNITUREITEMS"));
     const querySnapshot = await getDocs(q);
-    const itemsList: item[] = [];
+    const itemsList: Item[] = [];
     querySnapshot.forEach((doc) => {
       itemsList.push({
         UUID: doc.id,
@@ -34,16 +37,43 @@ export default function CatalogScreen() {
         imagePath: doc.data().image,
         price: doc.data().price,
       });
-
-      console.log("document data pushed to itemsList for id: " + doc.id);
     });
     setProducts(itemsList);
+    setLoading(false);
   };
 
-  //fetch furniture items on component mount
+  // Fetch furniture items on component mount
   useEffect(() => {
     fetchItems();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      setLoading(true);
+      fetchItems();
+    }, [])
+  );
+
+  // Filtered products based on search query
+  const filteredProducts = products.filter(
+    (item) =>
+      item.itemName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.brandName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.price.toString().includes(searchQuery.toLowerCase())
+  );
+
+  // Function to handle changes in the search bar text
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
+  };
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <View
@@ -60,9 +90,9 @@ export default function CatalogScreen() {
           shadowOpacity: 1,
         }}
         placeholder="Search for items"
-      >
-        {/* <Text style={{ color: colors.text }}>Test Input</Text> */}
-      </TextInput>
+        onChangeText={handleSearch} // Call handleSearch when text changes
+        value={searchQuery} // Value of the search bar
+      />
 
       <FlatList
         className="flex flex-1 h-full w-full pt-1 pr-0.5"
@@ -70,13 +100,13 @@ export default function CatalogScreen() {
           gap: 20,
           justifyContent: "space-around",
         }}
-        data={products}
+        data={filteredProducts} // Use filtered products
         numColumns={2}
         renderItem={({ item }) => (
           <ItemCard
             onPress={() =>
               router.push({
-                pathname: "/item-info/[items]" ,
+                pathname: "/item-info/[items]",
                 params: {
                   items: item.itemName,
                   imageSource: item.imagePath,

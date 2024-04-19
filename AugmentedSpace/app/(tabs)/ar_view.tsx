@@ -1,7 +1,5 @@
 import React, { useRef, useEffect } from "react";
-
-import UnityView from "@azesmway/react-native-unity";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 interface IMessage {
   gameObject: string;
@@ -9,36 +7,10 @@ interface IMessage {
   message: string;
 }
 
-const Unity = () => {
-  const unityRef = useRef<UnityView>(null);
-
-  useEffect(() => {
-    if (unityRef?.current) {
-      const message: IMessage = {
-        gameObject: "gameObject",
-        methodName: "methodName",
-        message: "message",
-      };
-      unityRef.current.postMessage(
-        message.gameObject,
-        message.methodName,
-        message.message
-      );
-    }
-  }, []);
-
+export default function ARView() {
   return (
     <View style={{ flex: 1 }}>
-      <UnityView
-        ref={unityRef}
-        // style={{ flex: 1 }}
-
-        onUnityMessage={(result) => {
-          console.log("onUnityMessage", result.nativeEvent.message);
-        }}
-      />
+      <Text>Test</Text>
     </View>
   );
-};
-
-export default Unity;
+}
