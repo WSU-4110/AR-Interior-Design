@@ -103,7 +103,7 @@ export default function ItemCard(props: ItemCardProps) {
                 onPress={() => router.push("/cart")}
               />
             </Text>
-          </Pressable> */}
+          </Pressable> */
         </View>
       </View>
 

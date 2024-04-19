@@ -2,12 +2,9 @@ import { Image, Pressable, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import { getAuth } from "firebase/auth";
 import { View, Text } from "@/components/Themed";
-import { router } from "expo-router";
 
 type CartCardProps = {
-  
   itemName: string;
   brandName: string;
   itemCost: number;
@@ -32,24 +29,15 @@ export default function CartCard(props: CartCardProps) {
   return (
     <Pressable
       style={[styles.card, { backgroundColor: colors.card, width: props.width }]}
-      onPress={() => router.push({
-        pathname: "/item-info/[items]" ,
-        params: {
-          items: props.itemName,
-          imageSource: props.imagePath,
-          itemCost: props.itemCost,
-          brandName: props.brandName
-        },
-      })}
     >
       <Image
         style={styles.image}
         source={{ uri: imageUrl }}
       />
       <View style={styles.infoContainer}>
-        <Text style={[styles.text, { color: colors.text }]}>{props.brandName}</Text>
-        <Text style={[styles.text, { color: colors.text, fontSize: 16 }]}>{props.itemName}</Text>
-        <Text style={[styles.text, { color: colors.text, fontSize: 16 }]}>${props.itemCost}</Text>
+        <Text style={[styles.text, ]}>{props.brandName}</Text>
+        <Text style={[styles.text, ]}>{props.itemName}</Text>
+        <Text style={[styles.text, ]}>${props.itemCost}</Text>
       </View>
       <Pressable onPress={props.onRemove} style={styles.removeButton}>
         <Text style={[styles.removeText, { color: colors.text }]}>Remove</Text>
@@ -77,7 +65,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   text: {
-    fontWeight: 'bold'
+    //fontWeight: 'bold'
+    color: 'black'
   },
   removeButton: {
     padding: 10,
