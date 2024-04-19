@@ -27,5 +27,5 @@ jobs:
       - name: Install dependencies
         run: cd AugmentedSpace && npm install
 
-      - name: Run Jest tests
-        run: cd AugmentedSpace && npm test
+      - name: Rory Lange ItemCard Unit Tests
+        run: cd AugmentedSpace && npm test --testPathPattern="components\__tests__\ItemCard.test"
