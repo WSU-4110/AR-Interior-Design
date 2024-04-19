@@ -33,6 +33,7 @@ export default function CardCard(props: CartCardProps) {
 
   return (
     <Pressable
+      testID="cart-card-pressable"
       className="w-1/2 h-auto flex-1 mx-1 p-2 rounded-2xl"
       onPress={props.onPress}
       style={{
@@ -43,6 +44,7 @@ export default function CardCard(props: CartCardProps) {
       }}
     >
       <Image
+        testID="cart-card-image"
         className="self-center h-32 w-32 my-2"
         source={{uri: imageUrl}}
       />
