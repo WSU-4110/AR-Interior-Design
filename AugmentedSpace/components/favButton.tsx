@@ -11,6 +11,7 @@ type FavButtonProps = {
   onPress?: () => void;
   className?: string;
   itemUUID: string;
+  //testID?: string
 };
 
 export default function FavButton(props: FavButtonProps) {
@@ -91,7 +92,8 @@ export default function FavButton(props: FavButtonProps) {
         shadowOpacity: 1,
       }}
     >
-      <Pressable onPress={handleFavoriteItem}>
+      <Pressable onPress={handleFavoriteItem}
+        testID="fav-button">
         <MaterialCommunityIcons
           name={liked ? "heart" : "heart-outline"}
           size={30}
