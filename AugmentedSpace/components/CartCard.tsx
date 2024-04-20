@@ -1,78 +1,89 @@
-import { Image, ImageSourcePropType, Pressable, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { getAuth } from "firebase/auth";
+import { View, Text } from "@/components/Themed";
+import { router } from "expo-router";
+
 type CartCardProps = {
+  
   itemName: string;
   brandName: string;
   itemCost: number;
   imagePath: string;
-  className?: string;
-  onPress?: () => void;
   onRemove: () => void;
+  width: number;
 };
 
-export default function CardCard(props: CartCardProps) {
+export default function CartCard(props: CartCardProps) {
   const { colors } = useTheme();
   const [imageUrl, setImageUrl] = useState("");
-  const { currentUser } = getAuth();
 
   useEffect(() => {
-    //retrieve image url from firebase
     const getImageUrl = async () => {
       const storage = getStorage();
       const reference = ref(storage, props.imagePath);
-      await getDownloadURL(reference).then((x) => {
-        setImageUrl(x);
-      })
-    }
-
+      await getDownloadURL(reference).then(setImageUrl);
+    };
     getImageUrl();
-  }, []);
+  }, [props.imagePath]);
 
   return (
     <Pressable
-      className="w-1/2 h-auto flex-1 mx-1 p-2 rounded-2xl"
-      onPress={props.onPress}
-      style={{
-        backgroundColor: colors.card,
-        shadowOffset: { width: 2, height: 2 },
-        shadowColor: colors.shadow,
-        shadowOpacity: 1,
-      }}
+      style={[styles.card, { backgroundColor: colors.card, width: props.width }]}
+      onPress={() => router.push({
+        pathname: "/item-info/[items]" ,
+        params: {
+          items: props.itemName,
+          imageSource: props.imagePath,
+          itemCost: props.itemCost,
+          brandName: props.brandName
+        },
+      })}
     >
       <Image
-        className="self-center h-32 w-32 my-2"
-        source={{uri: imageUrl}}
+        style={styles.image}
+        source={{ uri: imageUrl }}
       />
-      <View style={{
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-        marginVertical: 80,
-      }}
-        className="m-1">
-        <Text className="italic font-semibold" style={{ color: colors.text }}>
-          {props.brandName}
-        </Text>
-        <Text className="italic text-xl" style={{ color: colors.text }}>
-          {props.itemName}
-        </Text>
-        
-        <Text className="font-semibold" style={{ color: colors.text }}>
-          ${props.itemCost}
-        </Text>
-        
+      <View style={styles.infoContainer}>
+        <Text style={[styles.text, { color: colors.text }]}>{props.brandName}</Text>
+        <Text style={[styles.text, { color: colors.text, fontSize: 16 }]}>{props.itemName}</Text>
+        <Text style={[styles.text, { color: colors.text, fontSize: 16 }]}>${props.itemCost}</Text>
       </View>
-      <Pressable onPress={props.onRemove} style = {{
-            padding: 10,
-            alignItems: 'center',
-            borderTopWidth: 3,
-            borderColor: colors.border,
-        }}>
-            <Text style={{color: colors.text, fontWeight: 'bold',}}>Remove</Text>
-        </Pressable>
+      <Pressable onPress={props.onRemove} style={styles.removeButton}>
+        <Text style={[styles.removeText, { color: colors.text }]}>Remove</Text>
+      </Pressable>
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  card: {
+    padding: 10,
+    borderRadius: 10,
+    margin: 5,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 1,
+  },
+  image: {
+    height: 100,
+    width: 100,
+    alignSelf: "center"
+  },
+  infoContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  text: {
+    fontWeight: 'bold'
+  },
+  removeButton: {
+    padding: 10,
+    alignItems: 'center'
+  },
+  removeText: {
+    fontWeight: 'bold'
+  }
+});

@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+          
+      - name: Navigate to AugmentedSpace directory
+        run: cd AugmentedSpace && ls
+
+      - name: Install dependencies
+        run: cd AugmentedSpace && npm install
+
+      - name: Rory Lange ItemCard Unit Tests
+        run: cd AugmentedSpace && npm test --testPathPattern="components\__tests__\ItemCard.test"
