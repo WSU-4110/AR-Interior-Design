@@ -32,3 +32,6 @@ jobs:
 
       - name: Bryan Lor LogIn Page Unit Tests
         run: cd AugmentedSpace && npm test --testPathPattern="app\__tests__\logIn.test"
+        
+      - name: Mohammad Sulaiman CartCard Unit Tests
+        run: cd AugmentedSpace && npm test --testPathPattern="components\__tests__\CartCard.test"
