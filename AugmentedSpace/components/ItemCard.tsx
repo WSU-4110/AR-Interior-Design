@@ -1,9 +1,4 @@
-import {
-  Image,
-  Pressable,
-  Text,
-  View,
-} from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
@@ -51,8 +46,7 @@ export default function ItemCard(props: ItemCardProps) {
           shadowOpacity: 1,
         }}
       >
-        <Pressable onPress={props.onPress}
-          testID="card-button">
+        <Pressable onPress={props.onPress} testID="card-button">
           <View>
             <Image
               className="self-center h-32 w-32 my-2"
@@ -78,8 +72,7 @@ export default function ItemCard(props: ItemCardProps) {
 
         {/* Quick Action Buttons */}
         <View className="flex w-full flex-row">
-          <Pressable className="bg-red-500 flex-grow py-2"
-            testID="ar-button">
+          <Pressable className="bg-red-500 flex-grow py-2" testID="ar-button">
             <Text
               className="align-middle text-center justify-center items-center"
               style={{ color: colors.text }}
@@ -91,8 +84,10 @@ export default function ItemCard(props: ItemCardProps) {
               />
             </Text>
           </Pressable>
-          <Pressable className="bg-blue-500 flex-grow py-2"
-            testID="cart-button">
+          <Pressable
+            className="bg-blue-500 flex-grow py-2"
+            testID="cart-button"
+          >
             <Text
               className="align-middle text-center justify-center items-center"
               style={{ color: colors.text }}
