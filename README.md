@@ -23,3 +23,5 @@ Use `npx expo start --tunnel` to run the service. You might be asked to install 
 For android users, downloading the apk file in the ("Unity-Project" -> "AS-TestDeploys" ->) "Test1" folder on your device. To ensure it installs properly, open the Unity Project and Run+Build it from there.
 ####     Android Reqs
         Be sure your phone is set to Developer Mode. (Use this video as a guide https://www.youtube.com/watch?v=iCXwaehzRFQ)
+***
+Check our [project wiki](https://github.com/WSU-4110/AR-Interior-Design/wiki) to access the documentation for Sprint related information such as Sprint planning, retrospectives, standups, meetings, etc.
